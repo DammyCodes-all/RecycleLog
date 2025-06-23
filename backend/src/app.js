@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const connectDB = require('./utils/db');
-
+const api = require('../src/routes');
 require('dotenv').config();
 
 const app = express();
@@ -15,6 +15,8 @@ app.use(morgan('dev'));
 // Connect to DB
 connectDB();
 
+
+app.use('/api', api);
 
 // Root
 app.get('/', (req, res) => {
