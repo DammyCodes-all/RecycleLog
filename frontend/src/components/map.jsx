@@ -52,7 +52,7 @@ export default function BinMap() {
             icon={binIcon}
             eventHandlers={{
               click: () => {
-                console.log(`Clicked on bin ${bin.id}`);
+                console.log(bin);
               },
             }}
           >
