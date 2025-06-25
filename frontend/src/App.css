@@ -14,6 +14,7 @@ body {
     --color-graytext: #6b7280;
     --color-alert: #d9f99d;
     --color-error: #f87171;
+    --color-grey: #f5ffff;
 
     --font-outfit: "Outfit", sans-serif;
     --font-roboto: "Roboto", sans-serif;
@@ -22,6 +23,7 @@ body {
 
 @theme {
   --color-primary: #10b981;
+  --color-grey: #f5ffff;
   --color-secondary: #a3e635;
   --color-forest: #065f46;
   --color-mint: #f0fdf4;
