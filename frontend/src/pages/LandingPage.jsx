@@ -1,5 +1,6 @@
 import NavBar from "../components/navbar";
 import AnimatedContent from "../components/AnimatedContent";
+import RotatingText from "../components/rotatingText";
 import { memo } from "react";
 import { Button } from "@radix-ui/themes";
 import { ArrowRight } from "lucide-react";
@@ -37,10 +38,19 @@ const LandingPageContent = () => {
         <div className="bg-mint/40 px-2 text-sm py-1 rounded-md text-mint font-outfit font-light">
           Cleaner, Healthier, Safer Communities
         </div>
-        <p className="text-mint text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold font-outfit text-center w-[90%] sm:w-[80%] ">
-          Smarter Waste Management
-          <span className="text-forest">,Powered By AI</span>
-        </p>
+        <div className="text-mint text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold font-outfit text-center w-full sm:w-9/10 flex justify-center items-center flex-col ">
+          <RotatingText
+            texts={[
+              "Smarter Waste Management",
+              "Intelligent Recycling Solutions",
+              "Data-Driven Sustainability",
+              "AI-Powered Clean Cities",
+            ]}
+            rotationInterval={3550}
+            mainClassName=""
+          />
+          <span className="text-forest">, Powered By AI</span>
+        </div>
         <p className="text-mint/70 w-[85%] sm:w-[70%] text-center font-roboto">
           Real-time Insights, smart heatmaps, and AI driven recommendations to
           reduce waste and optimize collection in smart cites

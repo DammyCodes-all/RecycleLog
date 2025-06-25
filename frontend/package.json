@@ -13,6 +13,7 @@
     "@radix-ui/themes": "^3.2.1",
     "@tailwindcss/vite": "^4.1.10",
     "env": "^0.0.2",
+    "framer-motion": "^12.19.1",
     "gsap": "^3.13.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.523.0",

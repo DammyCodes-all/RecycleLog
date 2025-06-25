@@ -10,8 +10,6 @@ import {
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import "./RotatingText.css";
-
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -161,12 +159,15 @@ const RotatingText = forwardRef((props, ref) => {
 
   return (
     <motion.span
-      className={cn("text-rotate", mainClassName)}
+      className={cn(
+        "flex flex-wrap whitespace-pre-wrap relative",
+        mainClassName
+      )}
       {...rest}
       layout
       transition={transition}
     >
-      <span className="text-rotate-sr-only">{texts[currentTextIndex]}</span>
+      <span className="sr-only">{texts[currentTextIndex]}</span>
       <AnimatePresence
         mode={animatePresenceMode}
         initial={animatePresenceInitial}
@@ -174,7 +175,9 @@ const RotatingText = forwardRef((props, ref) => {
         <motion.div
           key={currentTextIndex}
           className={cn(
-            splitBy === "lines" ? "text-rotate-lines" : "text-rotate"
+            splitBy === "lines"
+              ? "flex flex-col w-full"
+              : "flex flex-wrap whitespace-pre-wrap relative"
           )}
           layout
           aria-hidden="true"
@@ -186,7 +189,7 @@ const RotatingText = forwardRef((props, ref) => {
             return (
               <span
                 key={wordIndex}
-                className={cn("text-rotate-word", splitLevelClassName)}
+                className={cn("inline-flex", splitLevelClassName)}
               >
                 {wordObj.characters.map((char, charIndex) => (
                   <motion.span
@@ -204,13 +207,13 @@ const RotatingText = forwardRef((props, ref) => {
                         )
                       ),
                     }}
-                    className={cn("text-rotate-element", elementLevelClassName)}
+                    className={cn("inline-block", elementLevelClassName)}
                   >
                     {char}
                   </motion.span>
                 ))}
                 {wordObj.needsSpace && (
-                  <span className="text-rotate-space"> </span>
+                  <span className="whitespace-pre"> </span>
                 )}
               </span>
             );
