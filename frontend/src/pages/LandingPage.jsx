@@ -4,6 +4,7 @@ import RotatingText from "../components/rotatingText";
 import { memo } from "react";
 import { Button } from "@radix-ui/themes";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -60,13 +61,19 @@ const LandingPageContent = () => {
             variant="solid"
             className="bg-primary px-4 py-2   rounded-md hover:bg-primary/80 transition-colors w-9/10 min-w-[230px]"
           >
-            Watch Demo
+            <Link to="/demo">Watch Demo</Link>
           </Button>
           <Button
             variant="soft"
             className="w-9/10 bg-mint/30 rounded-sm  text-mint px-4 py-2 min-w-[230px] hover:bg-mint/50  flex justify-center items-center gap-2 hover:gap-3 transition-all"
           >
-            View DashBoard <ArrowRight size={20} />
+            <Link
+              to="/dashboard"
+              className="flex justify-center items-center gap-2 "
+            >
+              View Dashboard
+              <ArrowRight size={20} />
+            </Link>
           </Button>
         </div>
       </div>
