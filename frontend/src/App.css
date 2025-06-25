@@ -1,1 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+body {
+  font-family: var(--font-outfit), var(--font-roboto);
+}
+
+@layer base {
+  :root {
+    --color-primary: #10b981;
+    --color-secondary: #a3e635;
+    --color-forest: #065f46;
+    --color-mint: #f0fdf4;
+    --color-charcoal: #1f2937;
+    --color-graytext: #6b7280;
+    --color-alert: #d9f99d;
+    --color-error: #f87171;
+
+    --font-outfit: "Outfit", sans-serif;
+    --font-roboto: "Roboto", sans-serif;
+  }
+}
+
+@theme {
+  --color-primary: #10b981;
+  --color-secondary: #a3e635;
+  --color-forest: #065f46;
+  --color-mint: #f0fdf4;
+  --color-charcoal: #1f2937;
+  --color-graytext: #6b7280;
+  --color-alert: #d9f99d;
+  --color-error: #f87171;
+
+  --font-outfit: "Outfit", sans-serif;
+  --font-roboto: "Roboto", sans-serif;
+}

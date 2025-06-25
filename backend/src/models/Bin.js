@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const BinSchema = new mongoose.Schema(
   {
+    name: { type: String, required: true },
     bin_id: { type: String, required: true, unique: true },
     location: {
       type: [Number, Number], // [longitude, latitude]

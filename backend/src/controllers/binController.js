@@ -21,8 +21,14 @@ const listBins = async (req, res) => {
 // Create a new bin
 const createBin = async (req, res) => {
   try {
-    const { bin_id, location, waste_type, estimated_weight, bin_fill_percent } =
-      req.body;
+    const {
+      bin_id,
+      location,
+      waste_type,
+      estimated_weight,
+      bin_fill_percent,
+      name,
+    } = req.body;
     const parsed_location = JSON.parse(location);
     console.log(parsed_location);
     // Validate required fields
@@ -48,8 +54,10 @@ const createBin = async (req, res) => {
           "Location must be an array with exactly 2 coordinates [longitude, latitude]",
       });
     }
+    let Name = name ? name : `Bin ${bin_id}`;
 
     const newBin = new Bin({
+      name: Name,
       bin_id,
       location: parsed_location,
       waste_type,
