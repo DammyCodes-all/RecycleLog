@@ -8,6 +8,7 @@ import {
   CircleQuestionMark,
   MapPin,
   ChevronDown,
+  Award
 } from "lucide-react";
 import Button from "./ui/Button";
 import { cn } from "../lib/utils";
@@ -50,13 +51,20 @@ const Sidebar = ({ className }) => {
       id: "analytics",
       label: "Analytics",
       icon: BarChart3,
+      href: "/analytics",
     },
     {
-      id: "Map",
+      id: "map",
       label: "Map",
       icon: MapPin,
       href: "/map",
     },
+    {
+      id: "rankings",
+      label: "Rankings",
+      icon: Award,
+      href: "/rankings",
+    }
   ];
 
   return (
