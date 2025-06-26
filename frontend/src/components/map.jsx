@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import leaflet from "leaflet";
 import bins from "../bin-data"; // Import
-
+import { ResponsiveContainer } from "recharts";
 // Fix for default markers
 delete leaflet.Icon.Default.prototype._getIconUrl;
 leaflet.Icon.Default.mergeOptions({
@@ -27,7 +27,8 @@ const binIcon = new leaflet.Icon({
 
 export default function BinMap() {
   return (
-    <div className="w-[900px] h-[550px]">
+    <div className="w-[900px] h-[500px]">
+      <ResponsiveContainer width="100%" height="100%">
       <MapContainer
         center={[6.5244, 3.3792]}
         zoom={13}
@@ -64,6 +65,7 @@ export default function BinMap() {
           </Marker>
         ))}
       </MapContainer>
+      </ResponsiveContainer>
     </div>
   );
 }
