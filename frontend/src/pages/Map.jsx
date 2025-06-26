@@ -3,31 +3,15 @@ import Topbar from "../components/Topbar";
 import Map from "../components/Map";
 const MapPage = () => {
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto ml-16 md:ml-0">
            <Topbar title="Heat Maps & Alerts" />
        <div className="max-w-7xl mx-auto p-6 space-y-6 font-sans">
 
       <div className="flex flex-col md:flex-row gap-6">
       
-        <div className="flex-1 relative rounded-xl overflow-hidden shadow-md">
-          <Map /> 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-4 py-3 rounded-md shadow-lg text-sm border border-gray-200 w-60">
-            <p className="font-bold text-green-800 text-lg">
-              Bin ID : <span className="text-yellow-500">#4444</span>
-            </p>
-            <p>
-              Waste type <span className="font-bold">Plastic</span> &nbsp;&nbsp;
-              Fill %: <span className="font-bold text-green-700">23</span>
-            </p>
-          </div>
-       
-          <div className="absolute top-4 right-4 flex flex-col gap-2">
-            <button className="bg-white p-2 rounded shadow hover:bg-gray-100">🔍</button>
-            <button className="bg-white p-2 rounded shadow hover:bg-gray-100">🔎</button>
-          </div>
-        </div>
+     <Map />
 
         <div className="w-full md:w-72 space-y-4">
           <h2 className="text-xl font-semibold text-red-600">Alerts</h2>

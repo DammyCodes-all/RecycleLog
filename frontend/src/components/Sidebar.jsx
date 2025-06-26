@@ -70,7 +70,7 @@ const Sidebar = ({ className }) => {
   return (
     <div
       className={cn(
-        "flex flex-col bg-forest text-mint border-r border-gray-200 shadow-sm transition-all duration-300 ease-in-out absolute",
+        "flex flex-col bg-forest text-mint border-r z-50 border-gray-200 shadow-sm transition-all duration-300 ease-in-out absolute md:static",
         isCollapsed ? "w-16" : "w-64",
         className
       )}

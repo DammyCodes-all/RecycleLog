@@ -36,9 +36,9 @@ const insights = [
 
 const Analytics = () => {
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto ml-16 md:ml-0">
     <Topbar title="AI Analytics" />
 
      <div className="flex flex-col lg:flex-row gap-6 px-6 py-6">
