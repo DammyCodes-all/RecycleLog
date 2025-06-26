@@ -8,7 +8,7 @@ import {
   CircleQuestionMark,
   MapPin,
   ChevronDown,
-  Award
+  Award,
 } from "lucide-react";
 import Button from "./ui/Button";
 import { cn } from "../lib/utils";
@@ -19,7 +19,7 @@ const Sidebar = ({ className }) => {
 
   useEffect(() => {
     const checkMobile = () => {
-      const isMobile = window.innerWidth < 768; // md breakpoint
+      const isMobile = window.innerWidth < 900; // md breakpoint
       setIsCollapsed(isMobile);
     };
 
@@ -64,13 +64,13 @@ const Sidebar = ({ className }) => {
       label: "Rankings",
       icon: Award,
       href: "/rankings",
-    }
+    },
   ];
 
   return (
     <div
       className={cn(
-        "flex flex-col bg-forest text-mint border-r z-50 border-gray-200 shadow-sm transition-all duration-300 ease-in-out absolute md:static",
+        "flex flex-col bg-forest text-mint border-r z-10000 border-gray-200 shadow-sm transition-all duration-300 ease-in-out absolute md:static",
         isCollapsed ? "w-16" : "w-64",
         className
       )}

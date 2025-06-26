@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import leaflet from "leaflet";
 import bins from "../bin-data"; // Import
 import { ResponsiveContainer } from "recharts";
+
 // Fix for default markers
 delete leaflet.Icon.Default.prototype._getIconUrl;
 leaflet.Icon.Default.mergeOptions({
@@ -18,6 +19,7 @@ const LagosBounds = [
   [6.2, 2.8], // Southwest
   [6.8, 4.0], // Northeast
 ];
+
 const binIcon = new leaflet.Icon({
   iconUrl: "/trash.png", // path to your custom bin image
   iconSize: [40, 40], // size of the icon
@@ -27,8 +29,7 @@ const binIcon = new leaflet.Icon({
 
 export default function BinMap() {
   return (
-    <div className="w-[900px] h-[500px]">
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden shadow-lg border border-green-100">
       <MapContainer
         center={[6.5244, 3.3792]}
         zoom={13}
@@ -37,6 +38,7 @@ export default function BinMap() {
         maxBounds={LagosBounds}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
+        className="rounded-lg"
       >
         <TileLayer
           url={`https://api.mapbox.com/styles/v1/mapbox/navigation-night-v1/tiles/{z}/{x}/{y}?access_token=${
@@ -58,14 +60,15 @@ export default function BinMap() {
             }}
           >
             <Tooltip>
-              <strong>{bin.name}</strong>
-              <br />
-              Fill Level: {bin.fill}%
+              <div className="font-outfit">
+                <strong className="text-forest">{bin.name}</strong>
+                <br />
+                <span className="text-primary">Fill Level: {bin.fill}%</span>
+              </div>
             </Tooltip>
           </Marker>
         ))}
       </MapContainer>
-      </ResponsiveContainer>
     </div>
   );
 }
