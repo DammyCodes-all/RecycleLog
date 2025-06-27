@@ -1,14 +1,15 @@
 // 🗑️ Comprehensive Lagos State Smart Bin Network - 1000+ Locations
 
 const bins = [
-  // LAGOS ISLAND DISTRICT (Dense Commercial & Financial Hub)
+  // LAGOS ISLAND DISTRICT (Dense Commercial & Financial Hub) - Ward D
   {
     id: "bin001",
     name: "Marina - Nigerian Stock Exchange",
     fill: 85,
     position: [6.4541, 3.3947],
     status: "critical",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin002",
@@ -16,7 +17,8 @@ const bins = [
     fill: 78,
     position: [6.4535, 3.3955],
     status: "high",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin003",
@@ -24,7 +26,8 @@ const bins = [
     fill: 72,
     position: [6.4548, 3.3962],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin004",
@@ -32,7 +35,8 @@ const bins = [
     fill: 92,
     position: [6.4512, 3.3856],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward D",
   },
   {
     id: "bin005",
@@ -40,7 +44,8 @@ const bins = [
     fill: 88,
     position: [6.4508, 3.3862],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin006",
@@ -48,7 +53,8 @@ const bins = [
     fill: 84,
     position: [6.4516, 3.385],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin007",
@@ -56,7 +62,8 @@ const bins = [
     fill: 90,
     position: [6.4598, 3.3853],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward D",
   },
   {
     id: "bin008",
@@ -64,7 +71,8 @@ const bins = [
     fill: 76,
     position: [6.4605, 3.386],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin009",
@@ -72,7 +80,8 @@ const bins = [
     fill: 82,
     position: [6.4567, 3.3889],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin010",
@@ -80,7 +89,8 @@ const bins = [
     fill: 79,
     position: [6.4573, 3.3895],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin011",
@@ -88,7 +98,8 @@ const bins = [
     fill: 65,
     position: [6.4525, 3.3875],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin012",
@@ -96,7 +107,8 @@ const bins = [
     fill: 71,
     position: [6.458, 3.384],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin013",
@@ -104,7 +116,8 @@ const bins = [
     fill: 86,
     position: [6.452, 3.3845],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin014",
@@ -112,7 +125,8 @@ const bins = [
     fill: 68,
     position: [6.4555, 3.387],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin015",
@@ -120,7 +134,8 @@ const bins = [
     fill: 74,
     position: [6.4545, 3.3835],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin016",
@@ -128,7 +143,8 @@ const bins = [
     fill: 63,
     position: [6.459, 3.3825],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin017",
@@ -136,7 +152,8 @@ const bins = [
     fill: 77,
     position: [6.4575, 3.3865],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin018",
@@ -144,7 +161,8 @@ const bins = [
     fill: 69,
     position: [6.462, 3.388],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin019",
@@ -152,7 +170,8 @@ const bins = [
     fill: 81,
     position: [6.4585, 3.389],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin020",
@@ -160,17 +179,19 @@ const bins = [
     fill: 70,
     position: [6.4552, 3.392],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
 
-  // VICTORIA ISLAND (Commercial & Business Hub)
+  // VICTORIA ISLAND (Commercial & Business Hub) - Ward D
   {
     id: "bin021",
     name: "Victoria Island - Adeola Odeku Street",
     fill: 68,
     position: [6.4269, 3.4314],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin022",
@@ -178,7 +199,8 @@ const bins = [
     fill: 45,
     position: [6.4281, 3.4219],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin023",
@@ -186,7 +208,8 @@ const bins = [
     fill: 54,
     position: [6.4238, 3.4198],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin024",
@@ -194,7 +217,8 @@ const bins = [
     fill: 72,
     position: [6.4255, 3.4285],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin025",
@@ -202,7 +226,8 @@ const bins = [
     fill: 58,
     position: [6.4275, 3.4235],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin026",
@@ -210,7 +235,8 @@ const bins = [
     fill: 61,
     position: [6.429, 3.4255],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin027",
@@ -218,7 +244,8 @@ const bins = [
     fill: 75,
     position: [6.4245, 3.4165],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin028",
@@ -226,7 +253,8 @@ const bins = [
     fill: 52,
     position: [6.4262, 3.4298],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin029",
@@ -234,7 +262,8 @@ const bins = [
     fill: 66,
     position: [6.4248, 3.4278],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin030",
@@ -242,7 +271,8 @@ const bins = [
     fill: 83,
     position: [6.4235, 3.4185],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin031",
@@ -250,7 +280,8 @@ const bins = [
     fill: 74,
     position: [6.4252, 3.4205],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin032",
@@ -258,7 +289,8 @@ const bins = [
     fill: 57,
     position: [6.4288, 3.4268],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin033",
@@ -266,7 +298,8 @@ const bins = [
     fill: 69,
     position: [6.4295, 3.4178],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin034",
@@ -274,7 +307,8 @@ const bins = [
     fill: 78,
     position: [6.4225, 3.4155],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin035",
@@ -282,17 +316,19 @@ const bins = [
     fill: 85,
     position: [6.4302, 3.4195],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
 
-  // IKOYI (Upscale Residential & Commercial)
+  // IKOYI (Upscale Residential & Commercial) - Ward D
   {
     id: "bin036",
     name: "Ikoyi - Awolowo Road",
     fill: 35,
     position: [6.4598, 3.4314],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin037",
@@ -300,7 +336,8 @@ const bins = [
     fill: 52,
     position: [6.4484, 3.4389],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin038",
@@ -308,7 +345,8 @@ const bins = [
     fill: 41,
     position: [6.4456, 3.4267],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin039",
@@ -316,7 +354,8 @@ const bins = [
     fill: 48,
     position: [6.4512, 3.4356],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin040",
@@ -324,7 +363,8 @@ const bins = [
     fill: 44,
     position: [6.4528, 3.4298],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin041",
@@ -332,7 +372,8 @@ const bins = [
     fill: 39,
     position: [6.4475, 3.4325],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin042",
@@ -340,7 +381,8 @@ const bins = [
     fill: 46,
     position: [6.4465, 3.4342],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin043",
@@ -348,7 +390,8 @@ const bins = [
     fill: 53,
     position: [6.4445, 3.4285],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin044",
@@ -356,7 +399,8 @@ const bins = [
     fill: 32,
     position: [6.4525, 3.4275],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin045",
@@ -364,7 +408,8 @@ const bins = [
     fill: 37,
     position: [6.4495, 3.4315],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin046",
@@ -372,7 +417,8 @@ const bins = [
     fill: 65,
     position: [6.4485, 3.4255],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin047",
@@ -380,7 +426,8 @@ const bins = [
     fill: 58,
     position: [6.4505, 3.4285],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin048",
@@ -388,17 +435,19 @@ const bins = [
     fill: 61,
     position: [6.4515, 3.4245],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
 
-  // LEKKI PENINSULA (Modern Development Area)
+  // LEKKI PENINSULA (Modern Development Area) - Ward D
   {
     id: "bin049",
     name: "Lekki Phase 1 - Admiralty Way",
     fill: 23,
     position: [6.4324, 3.4505],
     status: "low",
-    lastCollection: "2025-06-20",
+    lastCollection: new Date("2025-06-20"),
+    ward: "Ward D",
   },
   {
     id: "bin050",
@@ -406,7 +455,8 @@ const bins = [
     fill: 67,
     position: [6.4398, 3.4542],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin051",
@@ -414,7 +464,8 @@ const bins = [
     fill: 72,
     position: [6.4335, 3.4515],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin052",
@@ -422,7 +473,8 @@ const bins = [
     fill: 68,
     position: [6.4342, 3.4525],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin053",
@@ -430,7 +482,8 @@ const bins = [
     fill: 75,
     position: [6.4385, 3.4558],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin054",
@@ -438,7 +491,8 @@ const bins = [
     fill: 39,
     position: [6.4289, 3.5123],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin055",
@@ -446,7 +500,8 @@ const bins = [
     fill: 42,
     position: [6.4295, 3.5135],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin056",
@@ -454,7 +509,8 @@ const bins = [
     fill: 38,
     position: [6.4285, 3.5115],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin057",
@@ -462,7 +518,8 @@ const bins = [
     fill: 88,
     position: [6.4507, 3.5493],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward D",
   },
   {
     id: "bin058",
@@ -470,7 +527,8 @@ const bins = [
     fill: 79,
     position: [6.4445, 3.5285],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin059",
@@ -478,7 +536,8 @@ const bins = [
     fill: 82,
     position: [6.4465, 3.5325],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin060",
@@ -486,7 +545,8 @@ const bins = [
     fill: 71,
     position: [6.4425, 3.5245],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin061",
@@ -494,7 +554,8 @@ const bins = [
     fill: 54,
     position: [6.4385, 3.5145],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin062",
@@ -502,7 +563,8 @@ const bins = [
     fill: 46,
     position: [6.4425, 3.5185],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin063",
@@ -510,17 +572,19 @@ const bins = [
     fill: 51,
     position: [6.4445, 3.5205],
     status: "moderate",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
 
-  // AJAH (Growing Residential & Commercial Area)
+  // AJAH (Growing Residential & Commercial Area) - Ward D
   {
     id: "bin064",
     name: "Ajah - Ado Road Main Market",
     fill: 89,
     position: [6.4669, 3.5641],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
   {
     id: "bin065",
@@ -528,7 +592,8 @@ const bins = [
     fill: 56,
     position: [6.4598, 3.5789],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin066",
@@ -536,7 +601,8 @@ const bins = [
     fill: 73,
     position: [6.4685, 3.5655],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin067",
@@ -544,7 +610,8 @@ const bins = [
     fill: 64,
     position: [6.4625, 3.5725],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin068",
@@ -552,7 +619,8 @@ const bins = [
     fill: 48,
     position: [6.4655, 3.5815],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward D",
   },
   {
     id: "bin069",
@@ -560,7 +628,8 @@ const bins = [
     fill: 52,
     position: [6.4635, 3.5695],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward D",
   },
   {
     id: "bin070",
@@ -568,7 +637,8 @@ const bins = [
     fill: 76,
     position: [6.4645, 3.5675],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin071",
@@ -576,7 +646,8 @@ const bins = [
     fill: 78,
     position: [6.4615, 3.5635],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward D",
   },
   {
     id: "bin072",
@@ -584,17 +655,19 @@ const bins = [
     fill: 81,
     position: [6.4665, 3.5685],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward D",
   },
 
-  // IKEJA DIVISION (Capital Territory & Tech Hub)
+  // IKEJA DIVISION (Capital Territory & Tech Hub) - Ward E
   {
     id: "bin073",
     name: "Ikeja - Computer Village Main Market",
     fill: 96,
     position: [6.6056, 3.3598],
     status: "critical",
-    lastCollection: "2025-06-14",
+    lastCollection: new Date("2025-06-14"),
+    ward: "Ward E",
   },
   {
     id: "bin074",
@@ -602,7 +675,8 @@ const bins = [
     fill: 94,
     position: [6.6062, 3.3605],
     status: "critical",
-    lastCollection: "2025-06-14",
+    lastCollection: new Date("2025-06-14"),
+    ward: "Ward E",
   },
   {
     id: "bin075",
@@ -610,7 +684,8 @@ const bins = [
     fill: 92,
     position: [6.6048, 3.3588],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward E",
   },
   {
     id: "bin076",
@@ -618,7 +693,8 @@ const bins = [
     fill: 79,
     position: [6.6018, 3.3515],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward E",
   },
   {
     id: "bin077",
@@ -626,7 +702,8 @@ const bins = [
     fill: 85,
     position: [6.6025, 3.3525],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward E",
   },
   {
     id: "bin078",
@@ -634,7 +711,8 @@ const bins = [
     fill: 72,
     position: [6.6078, 3.3578],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward E",
   },
   {
     id: "bin079",
@@ -642,7 +720,8 @@ const bins = [
     fill: 68,
     position: [6.6085, 3.3585],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward E",
   },
   {
     id: "bin080",
@@ -650,7 +729,8 @@ const bins = [
     fill: 74,
     position: [6.6072, 3.3572],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward E",
   },
   {
     id: "bin081",
@@ -658,7 +738,8 @@ const bins = [
     fill: 88,
     position: [6.6134, 3.3634],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward E",
   },
   {
     id: "bin082",
@@ -666,7 +747,8 @@ const bins = [
     fill: 66,
     position: [6.5952, 3.3441],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward E",
   },
   {
     id: "bin083",
@@ -674,7 +756,8 @@ const bins = [
     fill: 43,
     position: [6.5889, 3.3467],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward E",
   },
   {
     id: "bin084",
@@ -682,7 +765,8 @@ const bins = [
     fill: 39,
     position: [6.5895, 3.3475],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward E",
   },
   {
     id: "bin085",
@@ -690,7 +774,8 @@ const bins = [
     fill: 91,
     position: [6.5745, 3.3245],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward E",
   },
   {
     id: "bin086",
@@ -698,7 +783,8 @@ const bins = [
     fill: 87,
     position: [6.5758, 3.3258],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward E",
   },
   {
     id: "bin087",
@@ -706,7 +792,8 @@ const bins = [
     fill: 83,
     position: [6.5735, 3.3235],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward E",
   },
   {
     id: "bin088",
@@ -714,7 +801,8 @@ const bins = [
     fill: 68,
     position: [6.5812, 3.3412],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward E",
   },
   {
     id: "bin089",
@@ -722,7 +810,8 @@ const bins = [
     fill: 55,
     position: [6.6045, 3.3555],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward E",
   },
   {
     id: "bin090",
@@ -730,17 +819,19 @@ const bins = [
     fill: 62,
     position: [6.5965, 3.3485],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward E",
   },
 
-  // BADAGRY DIVISION - Corrected coordinates (6°25′N 2°53′E)
+  // BADAGRY DIVISION - Ward A
   {
     id: "bin091",
     name: "Badagry - Seme Border Checkpoint",
     fill: 82,
     position: [6.4167, 2.8833],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward A",
   },
   {
     id: "bin092",
@@ -748,7 +839,8 @@ const bins = [
     fill: 89,
     position: [6.415, 2.885],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward A",
   },
   {
     id: "bin093",
@@ -756,7 +848,8 @@ const bins = [
     fill: 74,
     position: [6.41, 2.89],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward A",
   },
   {
     id: "bin094",
@@ -764,7 +857,8 @@ const bins = [
     fill: 78,
     position: [6.42, 2.895],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward A",
   },
   {
     id: "bin095",
@@ -772,7 +866,8 @@ const bins = [
     fill: 56,
     position: [6.418, 2.886],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward A",
   },
   {
     id: "bin096",
@@ -780,7 +875,8 @@ const bins = [
     fill: 61,
     position: [6.4145, 2.8845],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward A",
   },
   {
     id: "bin097",
@@ -788,7 +884,8 @@ const bins = [
     fill: 73,
     position: [6.412, 2.882],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward A",
   },
   {
     id: "bin098",
@@ -796,7 +893,8 @@ const bins = [
     fill: 58,
     position: [6.4155, 2.8875],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward A",
   },
   {
     id: "bin099",
@@ -804,7 +902,8 @@ const bins = [
     fill: 67,
     position: [6.4135, 2.889],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward A",
   },
   {
     id: "bin100",
@@ -812,7 +911,8 @@ const bins = [
     fill: 52,
     position: [6.4185, 2.8915],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward A",
   },
   {
     id: "bin101",
@@ -820,7 +920,8 @@ const bins = [
     fill: 91,
     position: [6.4623, 3.2123],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward A",
   },
   {
     id: "bin102",
@@ -828,7 +929,8 @@ const bins = [
     fill: 86,
     position: [6.4635, 3.2135],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward A",
   },
   {
     id: "bin103",
@@ -836,7 +938,8 @@ const bins = [
     fill: 75,
     position: [6.4456, 3.1856],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward A",
   },
   {
     id: "bin104",
@@ -844,17 +947,19 @@ const bins = [
     fill: 84,
     position: [6.4512, 3.1945],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward A",
   },
 
-  // IKORODU DIVISION (Northern Lagos)
+  // IKORODU DIVISION - Ward B
   {
     id: "bin105",
     name: "Ikorodu - Central Market",
     fill: 87,
     position: [6.6156, 3.5106],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward B",
   },
   {
     id: "bin106",
@@ -862,7 +967,8 @@ const bins = [
     fill: 84,
     position: [6.6234, 3.5134],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward B",
   },
   {
     id: "bin107",
@@ -870,7 +976,8 @@ const bins = [
     fill: 76,
     position: [6.6278, 3.5178],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin108",
@@ -878,7 +985,8 @@ const bins = [
     fill: 82,
     position: [6.6089, 3.5089],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward B",
   },
   {
     id: "bin109",
@@ -886,7 +994,8 @@ const bins = [
     fill: 69,
     position: [6.6189, 3.5145],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin110",
@@ -894,7 +1003,8 @@ const bins = [
     fill: 71,
     position: [6.6145, 3.5125],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin111",
@@ -902,7 +1012,8 @@ const bins = [
     fill: 73,
     position: [6.5789, 3.4789],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin112",
@@ -910,7 +1021,8 @@ const bins = [
     fill: 58,
     position: [6.5795, 3.4795],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin113",
@@ -918,7 +1030,8 @@ const bins = [
     fill: 65,
     position: [6.5456, 3.4456],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin114",
@@ -926,7 +1039,8 @@ const bins = [
     fill: 72,
     position: [6.5465, 3.4465],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin115",
@@ -934,7 +1048,8 @@ const bins = [
     fill: 67,
     position: [6.5923, 3.4923],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin116",
@@ -942,7 +1057,8 @@ const bins = [
     fill: 58,
     position: [6.5634, 3.4634],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin117",
@@ -950,7 +1066,8 @@ const bins = [
     fill: 71,
     position: [6.6012, 3.5012],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin118",
@@ -958,17 +1075,19 @@ const bins = [
     fill: 74,
     position: [6.6245, 3.5156],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
 
-  // EPE DIVISION (Eastern Lagos)
+  // EPE DIVISION - Ward B
   {
     id: "bin119",
     name: "Epe - Fish Market (Main)",
     fill: 94,
     position: [6.5789, 3.9789],
     status: "critical",
-    lastCollection: "2025-06-14",
+    lastCollection: new Date("2025-06-14"),
+    ward: "Ward B",
   },
   {
     id: "bin120",
@@ -976,7 +1095,8 @@ const bins = [
     fill: 81,
     position: [6.5833, 3.9833],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward B",
   },
   {
     id: "bin121",
@@ -984,7 +1104,8 @@ const bins = [
     fill: 73,
     position: [6.5856, 3.9856],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin122",
@@ -992,7 +1113,8 @@ const bins = [
     fill: 67,
     position: [6.5456, 3.9456],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin123",
@@ -1000,7 +1122,8 @@ const bins = [
     fill: 62,
     position: [6.5634, 3.9634],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin124",
@@ -1008,7 +1131,8 @@ const bins = [
     fill: 59,
     position: [6.5712, 3.9712],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin125",
@@ -1016,7 +1140,8 @@ const bins = [
     fill: 55,
     position: [6.5845, 3.9845],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin126",
@@ -1024,7 +1149,8 @@ const bins = [
     fill: 64,
     position: [6.5825, 3.9825],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward B",
   },
   {
     id: "bin127",
@@ -1032,7 +1158,8 @@ const bins = [
     fill: 78,
     position: [6.5775, 3.9775],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
   {
     id: "bin128",
@@ -1040,17 +1167,19 @@ const bins = [
     fill: 69,
     position: [6.5865, 3.9865],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward B",
   },
 
-  // SURULERE
+  // MAINLAND AREAS - Ward C
   {
     id: "bin32",
     name: "Surulere - Adeniran Ogunsanya",
     fill: 41,
     position: [6.5056, 3.3606],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward C",
   },
   {
     id: "bin33",
@@ -1058,7 +1187,8 @@ const bins = [
     fill: 63,
     position: [6.4987, 3.3547],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
   {
     id: "bin34",
@@ -1066,17 +1196,17 @@ const bins = [
     fill: 85,
     position: [6.5123, 3.3734],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
-
-  // YABA
   {
     id: "bin35",
     name: "Yaba - Herbert Macaulay",
     fill: 78,
     position: [6.5158, 3.3777],
     status: "high",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
   {
     id: "bin36",
@@ -1084,17 +1214,17 @@ const bins = [
     fill: 64,
     position: [6.5178, 3.3856],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
-
-  // APAPA
   {
     id: "bin37",
     name: "Apapa - Wharf Road",
     fill: 92,
     position: [6.4474, 3.3594],
     status: "critical",
-    lastCollection: "2025-06-15",
+    lastCollection: new Date("2025-06-15"),
+    ward: "Ward C",
   },
   {
     id: "bin38",
@@ -1102,7 +1232,8 @@ const bins = [
     fill: 58,
     position: [6.4598, 3.3692],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
   {
     id: "bin39",
@@ -1110,17 +1241,17 @@ const bins = [
     fill: 87,
     position: [6.4389, 3.3567],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
-
-  // MUSHIN
   {
     id: "bin40",
     name: "Mushin - Agege Motor Road",
     fill: 65,
     position: [6.5244, 3.3434],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
   {
     id: "bin41",
@@ -1128,17 +1259,17 @@ const bins = [
     fill: 79,
     position: [6.5289, 3.3398],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
-
-  // AGEGE
   {
     id: "bin42",
     name: "Agege - Old Abeokuta Road",
     fill: 38,
     position: [6.6149, 3.3213],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward C",
   },
   {
     id: "bin43",
@@ -1146,17 +1277,17 @@ const bins = [
     fill: 62,
     position: [6.6234, 3.3167],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
-
-  // GBAGADA
   {
     id: "bin44",
     name: "Gbagada - Gbagada Express",
     fill: 55,
     position: [6.5439, 3.3908],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
   {
     id: "bin45",
@@ -1164,27 +1295,26 @@ const bins = [
     fill: 47,
     position: [6.5389, 3.3856],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward C",
   },
-
-  // MARYLAND
   {
     id: "bin46",
     name: "Maryland - Ikorodu Road",
     fill: 47,
     position: [6.5698, 3.3678],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward C",
   },
-
-  // FESTAC TOWN
   {
     id: "bin47",
     name: "Festac - 2nd Avenue",
     fill: 59,
     position: [6.4656, 3.2978],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
   {
     id: "bin48",
@@ -1192,37 +1322,35 @@ const bins = [
     fill: 71,
     position: [6.4623, 3.2845],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
-
-  // SATELLITE TOWN
   {
     id: "bin49",
     name: "Satellite Town - Alaba Market",
     fill: 84,
     position: [6.4556, 3.2234],
     status: "critical",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
-
-  // OJO
   {
     id: "bin50",
     name: "Ojo - Lagos-Badagry Express",
     fill: 53,
     position: [6.4689, 3.1567],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
-
-  // KOSOFE
   {
     id: "bin51",
     name: "Kosofe - Ketu",
     fill: 66,
     position: [6.5889, 3.3989],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
   {
     id: "bin52",
@@ -1230,27 +1358,26 @@ const bins = [
     fill: 81,
     position: [6.5667, 3.3834],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
-
-  // IFAKO-IJAIYE
   {
     id: "bin53",
     name: "Ifako - Ogba",
     fill: 49,
     position: [6.6345, 3.3456],
     status: "low",
-    lastCollection: "2025-06-19",
+    lastCollection: new Date("2025-06-19"),
+    ward: "Ward C",
   },
-
-  // ALIMOSHO
   {
     id: "bin54",
     name: "Alimosho - Egbeda",
     fill: 72,
     position: [6.5956, 3.2889],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
   {
     id: "bin55",
@@ -1258,27 +1385,26 @@ const bins = [
     fill: 56,
     position: [6.6123, 3.2734],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
-
-  // LAGOS MAINLAND
   {
     id: "bin56",
     name: "Lagos Mainland - Jibowu",
     fill: 68,
     position: [6.5234, 3.3689],
     status: "moderate",
-    lastCollection: "2025-06-17",
+    lastCollection: new Date("2025-06-17"),
+    ward: "Ward C",
   },
-
-  // OSHODI-ISOLO
   {
     id: "bin57",
     name: "Oshodi - International Airport Road",
     fill: 75,
     position: [6.5489, 3.3167],
     status: "high",
-    lastCollection: "2025-06-16",
+    lastCollection: new Date("2025-06-16"),
+    ward: "Ward C",
   },
   {
     id: "bin58",
@@ -1286,7 +1412,8 @@ const bins = [
     fill: 52,
     position: [6.5278, 3.3445],
     status: "moderate",
-    lastCollection: "2025-06-18",
+    lastCollection: new Date("2025-06-18"),
+    ward: "Ward C",
   },
 ];
 

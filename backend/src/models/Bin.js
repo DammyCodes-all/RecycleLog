@@ -1,8 +1,14 @@
+const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 const BinSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     bin_id: { type: String, required: true, unique: true },
+    ward: {
+      type: String,
+      required: true,
+      enum: ["Ward A", "Ward B", "Ward C", "Ward D", "Ward E"],
+    },
     location: {
       type: [Number, Number], // [longitude, latitude]
       required: true,
@@ -14,20 +20,6 @@ const BinSchema = new mongoose.Schema(
           "Location must contain exactly 2 coordinates [longitude, latitude]",
       },
     },
-    waste_type: {
-      type: String,
-      required: true,
-      enum: [
-        "plastic",
-        "organic",
-        "e-waste",
-        "paper",
-        "metal",
-        "glass",
-        "other",
-      ],
-    },
-    estimated_weight: { type: Number, required: true },
     bin_fill_percent: { type: Number, required: true, min: 0, max: 100 },
   },
   {

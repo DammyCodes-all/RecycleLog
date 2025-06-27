@@ -1,5 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
+import bins from "../bin-data";
 import Map from "../components/Map";
 import AnalyticsBar from "../components/AnalyticsBar";
 
@@ -17,7 +18,7 @@ const MapPage = () => {
         <Topbar title="Heat Maps & Alerts" />
         <div className="max-w-7xl mx-auto p-6 space-y-6 font-sans">
           <div className="flex flex-col md:flex-row gap-6">
-            <Map />
+            <Map bins={bins} />
 
             <div className="w-full md:w-72 space-y-4">
               <h2 className="text-xl font-semibold text-red-600">Alerts</h2>

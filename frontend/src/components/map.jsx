@@ -1,8 +1,6 @@
 import { MapContainer, TileLayer, Marker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import leaflet from "leaflet";
-import bins from "../bin-data"; // Import
-import { ResponsiveContainer } from "recharts";
 
 // Fix for default markers
 delete leaflet.Icon.Default.prototype._getIconUrl;
@@ -27,7 +25,7 @@ const binIcon = new leaflet.Icon({
   popupAnchor: [0, -30], // where popup opens relative to the icon
 });
 
-export default function BinMap() {
+export default function BinMap({ bins }) {
   return (
     <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden shadow-lg border border-green-100">
       <MapContainer
@@ -60,9 +58,9 @@ export default function BinMap() {
             }}
           >
             <Tooltip>
-              <div className="font-outfit">
+              <div className="font-outfit flex  flex-col justify-center">
+                <strong className="text-forest">{bin.ward}</strong>
                 <strong className="text-forest">{bin.name}</strong>
-                <br />
                 <span className="text-primary">Fill Level: {bin.fill}%</span>
               </div>
             </Tooltip>

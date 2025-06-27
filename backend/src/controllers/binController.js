@@ -21,28 +21,15 @@ const listBins = async (req, res) => {
 // Create a new bin
 const createBin = async (req, res) => {
   try {
-    const {
-      bin_id,
-      location,
-      waste_type,
-      estimated_weight,
-      bin_fill_percent,
-      name,
-    } = req.body;
+    const { bin_id, location, ward, bin_fill_percent, name } = req.body;
     const parsed_location = JSON.parse(location);
     console.log(parsed_location);
     // Validate required fields
-    if (
-      !bin_id ||
-      !location ||
-      !waste_type ||
-      estimated_weight === undefined ||
-      bin_fill_percent === undefined
-    ) {
+    if (!bin_id || !location || !ward || bin_fill_percent === undefined) {
       return res.status(400).json({
         success: false,
         message:
-          "All fields are required: bin_id, location, waste_type, estimated_weight, bin_fill_percent",
+          "All fields are required: bin_id, location,ward , bin_fill_percent",
       });
     }
 
@@ -59,9 +46,8 @@ const createBin = async (req, res) => {
     const newBin = new Bin({
       name: Name,
       bin_id,
+      ward,
       location: parsed_location,
-      waste_type,
-      estimated_weight,
       bin_fill_percent,
     });
 

@@ -1,14 +1,51 @@
 import Sidebar from "../components/Sidebar";
-import Button from "../components/ui/Button";
 import Topbar from "../components/Topbar";
 import BarChart from "../components/BarChart";
 import AnalyticsBar from "../components/AnalyticsBar";
+import { useEffect, useState } from "react";
 
 const DashBoard = () => {
+  const [dashBoardData, setDashBoardData] = useState({
+    bins: [],
+    totalBins: 0,
+    topWasteType: "Plastic",
+    averageFill: 0,
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Run both API calls in parallel
+        const [response1, response2] = await Promise.all([
+          fetch("http://localhost:5000/api/bins"),
+          fetch("http://localhost:5000/api/dashboard/stats"),
+        ]);
+
+        // Parse both responses in parallel
+        const [data, data2] = await Promise.all([
+          response1.json(),
+          response2.json(),
+        ]);
+
+        setDashBoardData((prevData) => ({
+          ...prevData,
+          bins: data.data,
+          totalBins: data2.totalBins,
+          averageFill: data2.avgFill,
+        }));
+        console.log("Dashboard data fetched successfully:");
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+    };
+    fetchData();
+  }, []);
   const analyticsContent = [
-    { title: "Total Bins", content: "10,871 bins" },
-    { title: "Average Fill", content: "78%" },
-    { title: "Top waste type", content: "Plastic" },
+    { title: "Total Bins", content: `${dashBoardData.totalBins} bins` },
+    {
+      title: "Average Fill",
+      content: `${Math.floor(dashBoardData.averageFill)}%`,
+    },
+    { title: "Top waste type", content: dashBoardData.topWasteType },
   ];
 
   const insights = [
@@ -29,20 +66,27 @@ const DashBoard = () => {
   ];
 
   // Bar chart data for dashboard
-  const dashboardBarData = [
-    { name: "Jan", value: 50 },
-    { name: "Feb", value: 60 },
-    { name: "Mar", value: 65 },
-    { name: "Apr", value: 48 },
-    { name: "May", value: 72 },
-    { name: "Jun", value: 78 },
-    { name: "Jul", value: 80 },
-    { name: "Aug", value: 68 },
-    { name: "Sep", value: 24 },
-    { name: "Oct", value: 39 },
-    { name: "Nov", value: 100 },
-    { name: "Dec", value: 8 },
+  const getAvgFillByWard = (bins, ward) => {
+    const wardBins = bins.filter((bin) => bin.ward === ward);
+    return wardBins.length > 0
+      ? Math.floor(
+          wardBins.reduce((acc, bin) => acc + bin.bin_fill_percent, 0) /
+            wardBins.length
+        )
+      : 0;
+  };
+
+  const wardData = [
+    {
+      name: "Ward A",
+      value: getAvgFillByWard(dashBoardData.bins, "Ward A"),
+    },
+    { name: "Ward B", value: getAvgFillByWard(dashBoardData.bins, "Ward B") },
+    { name: "Ward C", value: getAvgFillByWard(dashBoardData.bins, "Ward C") },
+    { name: "Ward D", value: getAvgFillByWard(dashBoardData.bins, "Ward D") },
+    { name: "Ward E", value: getAvgFillByWard(dashBoardData.bins, "Ward E") },
   ];
+
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
@@ -63,6 +107,17 @@ const DashBoard = () => {
         </div>
         {/* grid container */}
         <div className="grid grid-cols-1 grid-row-3 md:grid-cols-2 md:grid-rows-2 w-full gap-3 items-center justify-center px-6 py-3">
+          {/* Dashboard Bar chart */}
+          <div className="w-full h-full order-0 md:order-1">
+            <BarChart
+              data={wardData}
+              title="Average Fill Levels"
+              height="300px"
+              dataKey="value"
+              nameKey="name"
+              barColor="#16a34a"
+            />
+          </div>{" "}
           {/* AI recommendations */}
           <div className="bg-grey shadow-sm text-forest w-full h-full rounded-md p-6 flex flex-col gap-2 md:row-span-2">
             <p>AI recommendations</p>
@@ -72,19 +127,8 @@ const DashBoard = () => {
               ))}
             </div>
           </div>
-          {/* Dashboard Bar chart */}
-          <div className="w-full h-full">
-            <BarChart
-              data={dashboardBarData}
-              title="Waste collection trends"
-              height="300px"
-              dataKey="value"
-              nameKey="name"
-              barColor="#16a34a"
-            />
-          </div>
           {/* Alerts */}
-          <div className="bg-error shadow-sm text-forest w-full h-full rounded-md p-4 flex flex-col gap-2">
+          <div className="bg-error shadow-sm text-forest w-full h-full rounded-md p-4 flex flex-col gap-2 order-2">
             <p className="text-red-800 font-semibold text-lg">Alerts</p>
             <div className="px-3 text-white flex justify-evenly gap-2 flex-col">
               {alerts.map((item, index) => (
