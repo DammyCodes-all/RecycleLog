@@ -21,6 +21,12 @@ const BinSchema = new mongoose.Schema(
       },
     },
     bin_fill_percent: { type: Number, required: true, min: 0, max: 100 },
+    waste_breakdown: [
+      {
+        waste_type: { type: String, required: true },
+        weight: { type: Number, required: true, min: 0 },
+      },
+    ],
   },
   {
     timestamps: true,

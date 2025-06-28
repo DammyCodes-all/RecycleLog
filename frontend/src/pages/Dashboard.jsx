@@ -3,42 +3,40 @@ import Topbar from "../components/Topbar";
 import BarChart from "../components/BarChart";
 import AnalyticsBar from "../components/AnalyticsBar";
 import { useEffect, useState } from "react";
+import { useBinContext } from "../appContext";
 
 const DashBoard = () => {
+  const { bins } = useBinContext();
   const [dashBoardData, setDashBoardData] = useState({
     bins: [],
     totalBins: 0,
-    topWasteType: "Plastic",
+    topWasteType: "  ",
     averageFill: 0,
   });
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Run both API calls in parallel
-        const [response1, response2] = await Promise.all([
-          fetch("http://localhost:5000/api/bins"),
-          fetch("http://localhost:5000/api/dashboard/stats"),
-        ]);
+        const response = await fetch(
+          "http://localhost:5000/api/dashboard/stats"
+        );
 
         // Parse both responses in parallel
-        const [data, data2] = await Promise.all([
-          response1.json(),
-          response2.json(),
-        ]);
+        const data = await response.json();
+        console.log(data);
 
         setDashBoardData((prevData) => ({
           ...prevData,
-          bins: data.data,
-          totalBins: data2.totalBins,
-          averageFill: data2.avgFill,
+          bins: bins,
+          totalBins: data.totalBins,
+          averageFill: data.avgFill,
+          topWasteType: data.topWasteType,
         }));
-        console.log("Dashboard data fetched successfully:");
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       }
     };
     fetchData();
-  }, []);
+  }, [bins]);
   const analyticsContent = [
     { title: "Total Bins", content: `${dashBoardData.totalBins} bins` },
     {

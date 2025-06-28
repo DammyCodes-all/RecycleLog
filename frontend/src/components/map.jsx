@@ -48,20 +48,20 @@ export default function BinMap({ bins }) {
 
         {bins.map((bin) => (
           <Marker
-            key={bin.id}
-            position={bin.position}
+            key={bin.bin_id}
+            position={bin.location}
             icon={binIcon}
             eventHandlers={{
-              click: () => {
-                console.log(bin);
-              },
+              click: () => {},
             }}
           >
             <Tooltip>
               <div className="font-outfit flex  flex-col justify-center">
                 <strong className="text-forest">{bin.ward}</strong>
                 <strong className="text-forest">{bin.name}</strong>
-                <span className="text-primary">Fill Level: {bin.fill}%</span>
+                <span className="text-primary">
+                  Fill Level: {bin.bin_fill_percent}%
+                </span>
               </div>
             </Tooltip>
           </Marker>

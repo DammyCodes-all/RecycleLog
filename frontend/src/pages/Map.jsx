@@ -1,15 +1,36 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import bins from "../bin-data";
 import Map from "../components/Map";
 import AnalyticsBar from "../components/AnalyticsBar";
-
+import { useBinContext } from "../appContext";
+import { useState, useEffect } from "react";
 const MapPage = () => {
-  const statsData = [
+  const [statsData, setStatsData] = useState([
     { title: "Total Active Bins", content: "10,781 bins" },
     { title: "Bins Near Overflow", content: "23" },
     { title: "Most Common Waste", content: "Plastic" },
-  ];
+  ]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/dashboard/stats"
+        );
+
+        // Parse both responses in parallel
+        const data = await response.json();
+        setStatsData([
+          { title: "Total Active Bins", content: data.totalBins },
+          { title: "Bins Near Overflow", content: data.overflowCount },
+          { title: "Most Common Waste", content: data.topWasteType },
+        ]);
+      } catch (error) {
+        console.error("Error fetching dashboard data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+  const { bins } = useBinContext();
 
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
