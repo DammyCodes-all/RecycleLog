@@ -109,7 +109,7 @@ const DashBoard = () => {
           <div className="w-full h-full order-0 md:order-1">
             <BarChart
               data={wardData}
-              title="Average Fill Levels"
+              title="Average Fill Levels per ward"
               height="300px"
               dataKey="value"
               nameKey="name"

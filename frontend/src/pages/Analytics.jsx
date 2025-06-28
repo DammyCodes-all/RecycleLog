@@ -1,23 +1,8 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import React from "react";
+import { useEffect, useState } from "react";
 import ZonePieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
-
-const barData = [
-  { name: "Jan", value: 50 },
-  { name: "Feb", value: 60 },
-  { name: "Mar", value: 65 },
-  { name: "Apr", value: 48 },
-  { name: "May", value: 72 },
-  { name: "Jun", value: 78 },
-  { name: "Jul", value: 80 },
-  { name: "Aug", value: 5 },
-  { name: "Sep", value: 4 },
-  { name: "Oct", value: 3 },
-  { name: "Nov", value: 2 },
-  { name: "Dec", value: 2 },
-];
 
 const insights = [
   "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
@@ -31,6 +16,29 @@ const insights = [
 ];
 
 const Analytics = () => {
+  const [chartData, setChartData] = useState({ pieData: [], barData: [] });
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "http://localhost:5000/api/analytics/distribution"
+      );
+      const data = await response.json();
+      console.log(data);
+      setChartData((prevData) => ({
+        ...prevData,
+        pieData: data.pieData.map((item) => ({
+          name: item.wasteType,
+          value: item.count,
+        })),
+        barData: data.barData.map((item) => ({
+          name: item.ward,
+          value: item.totalWaste,
+        })),
+      }));
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
@@ -43,8 +51,8 @@ const Analytics = () => {
             {/* Bar Chart */}
             <div className="h-[350px]">
               <BarChart
-                data={barData}
-                title="Waste collection trends"
+                data={chartData.barData}
+                title="Total waste per ward"
                 height="80%"
               />
             </div>
@@ -54,7 +62,7 @@ const Analytics = () => {
               <h2 className="text-lg font-semibold text-green-900 mb-4">
                 Distribution of Wastes
               </h2>
-              <ZonePieChart />
+              <ZonePieChart pieData={chartData.pieData} />
             </div>
           </div>
 

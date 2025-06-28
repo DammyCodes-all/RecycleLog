@@ -11,6 +11,7 @@ import {
   Award,
 } from "lucide-react";
 import Button from "./ui/Button";
+import { Link } from "react-router-dom";
 import { cn } from "../lib/utils";
 
 const Sidebar = ({ className }) => {
@@ -80,12 +81,14 @@ const Sidebar = ({ className }) => {
       <div className={cn(" p-3 flex items-center justify-between  bg-forest ")}>
         {!isCollapsed && (
           <>
-            <div className="flex items-center justify-center gap-2">
-              <img src="recycle.png" className="size-7" alt="" />
-              <p className="text-lg text-mint font-semibold font-outfit">
-                Recyc<span className="text-secondary">Log</span>
-              </p>
-            </div>
+            <Link to="/">
+              <div className="flex items-center justify-center gap-2">
+                <img src="recycle.png" className="size-7" alt="" />
+                <p className="text-lg text-mint font-semibold font-outfit">
+                  Recyc<span className="text-secondary">Log</span>
+                </p>
+              </div>
+            </Link>
           </>
         )}
 
