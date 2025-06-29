@@ -1,60 +1,40 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import React from "react";
-
-const rankings = [
-  {
-    rank: 1,
-    medal: "./First Medal.png",
-    zone: "Zone CV",
-    fill: "82%",
-    status: "clean",
-  },
-  {
-    rank: 2,
-    medal: "/Gold Medal.png",
-    zone: "Zone CV",
-    fill: "82%",
-    status: "clean",
-  },
-  {
-    rank: 3,
-    medal: "/Bronze Medal.png",
-    zone: "Zone CV",
-    fill: "82%",
-    status: "clean",
-  },
-  {
-    rank: 4,
-    medal: "/Silver Medal.png",
-    zone: "Zone CV",
-    fill: "82%",
-    status: "clean",
-  },
-  {
-    rank: 5,
-    medal: "/Silver Medal.png",
-    zone: "Zone CV",
-    fill: "82%",
-    status: "clean",
-  },
-  {
-    rank: 6,
-    medal: "/Silver Medal.png",
-    zone: "Zone CV",
-    fill: "city",
-    status: "clean",
-  },
-  {
-    rank: 7,
-    medal: "/Silver Medal.png",
-    zone: "Zone CV",
-    fill: "city",
-    status: "raning",
-  },
-];
+import React, { useEffect, useState } from "react";
 
 const Rankings = () => {
+  const [rankings, setRankings] = useState([]);
+
+  useEffect(() => {
+    const fetchRankings = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/leaderboard/regions"); // Adjust base path if needed
+        const data = await response.json();
+
+        const formatted = data.map((item, index) => ({
+          rank: index + 1,
+          medal: getMedalByRank(index + 1),
+          zone: item.region,
+          fill: `${item.avgFill.toFixed(1)}%`,
+          status: item.avgFill < 50 ? "clean" : item.avgFill < 80 ? "moderate" : "dirty",
+        }));
+
+        setRankings(formatted);
+      } catch (error) {
+        console.error("Failed to fetch leaderboard:", error);
+      }
+    };
+
+    fetchRankings();
+  }, []);
+
+  const getMedalByRank = (rank) => {
+    if (rank === 1) return "/First Medal.png";
+    if (rank === 2) return "/Gold Medal.png";
+    if (rank === 3) return "/Bronze Medal.png";
+    return "/Silver Medal.png";
+  };
+
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
@@ -62,18 +42,21 @@ const Rankings = () => {
         <Topbar title="Waste Community Rankings" />
 
         <div className="p-6 max-w-6xl mx-auto font-sans">
-          <div className="bg-green-800 text-white rounded-t-xl px-8 py-6 flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center gap-4">
-              <img src="/Award 2.png" alt="Badge" className="w-10 h-10" />
-              <div>
-                <h2 className="text-2xl font-bold">Zone Cv</h2>
-                <p className="text-sm">Bin: #2444</p>
+          {/* Hero card (Optional improvement info) */}
+          {rankings[0] && (
+            <div className="bg-green-800 text-white rounded-t-xl px-8 py-6 flex flex-col md:flex-row justify-between items-center">
+              <div className="flex items-center gap-4">
+                <img src="/Award 2.png" alt="Badge" className="w-10 h-10" />
+                <div>
+                  <h2 className="text-2xl font-bold">{rankings[0].zone}</h2>
+                  <p className="text-sm">Avg Fill: {rankings[0].fill}</p>
+                </div>
               </div>
+              <p className="text-sm mt-4 md:mt-0 text-right max-w-md text-ellipsis whitespace-nowrap overflow-hidden">
+                Most improved region based on bin fill metrics
+              </p>
             </div>
-            <p className="text-sm mt-4 md:mt-0 text-right max-w-md text-ellipsis whitespace-nowrap overflow-hidden">
-              most improved most improved most improved most improved
-            </p>
-          </div>
+          )}
 
           <div className="overflow-x-auto bg-white rounded-b-xl shadow-md">
             <table className="min-w-full text-sm text-left">
@@ -97,7 +80,7 @@ const Rankings = () => {
                     </td>
                     <td className="px-6 py-4">{zone}</td>
                     <td className="px-6 py-4 text-green-500 font-medium">
-                      Key metric
+                      Avg Bin Fill
                     </td>
                     <td className="px-6 py-4 text-green-500 font-medium">
                       {fill}

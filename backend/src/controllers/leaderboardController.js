@@ -1,16 +1,31 @@
-
 const Bin = require('../models/Bin');
 
 // GET /leaderboard/regions
 exports.regionLeaderboard = async (req, res) => {
   try {
-    // Aggregate by region to compute waste per cap or improvement
+    // Aggregate by ward to compute average fill percent and total waste weight
     const data = await Bin.aggregate([
-      { $group: { _id: '$location.zone', avgFill: { $avg: '$bin_fill_percent' }, totalWeight: { $sum: '$estimated_weight' } } },
-      { $sort: { avgFill: 1 } }, // least waste per cap approximated by avg fill ascending
+      { $unwind: '$waste_breakdown' },
+      {
+        $group: {
+          _id: '$ward',
+          avgFill: { $avg: '$bin_fill_percent' },
+          totalWeight: { $sum: '$waste_breakdown.weight' }
+        }
+      },
+      { $sort: { avgFill: 1 } }, // least average fill first
       { $limit: 10 }
     ]);
-    res.json(data.map(d => ({ region: d._id, avgFill: d.avgFill, totalWeight: d.totalWeight })));
+
+    // Map to include rank
+    const result = data.map((d, index) => ({
+      rank: index + 1,
+      region: d._id,
+      avgFill: d.avgFill,
+      totalWeight: d.totalWeight
+    }));
+
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });
@@ -20,12 +35,20 @@ exports.regionLeaderboard = async (req, res) => {
 // GET /leaderboard/entities
 exports.entityLeaderboard = async (req, res) => {
   try {
-    // Example: leaderboard by individual bins most improved (placeholder logic)
-    const data = await Bin.aggregate([
-      { $sort: { bin_fill_percent: 1 } },
-      { $limit: 10 }
-    ]);
-    res.json(data.map(d => ({ binId: d.bin_id, fillPercent: d.bin_fill_percent, location: d.location.zone })));
+    // List individual bins sorted by lowest fill percent
+    const data = await Bin.find({}, 'bin_id bin_fill_percent ward')
+      .sort({ bin_fill_percent: 1 })
+      .limit(10)
+      .lean();
+
+    const result = data.map((d, index) => ({
+      rank: index + 1,
+      binId: d.bin_id,
+      fillPercent: d.bin_fill_percent,
+      ward: d.ward
+    }));
+
+    res.json(result);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Server error' });

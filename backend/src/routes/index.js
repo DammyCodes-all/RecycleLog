@@ -7,6 +7,6 @@ router.use("/map", require("./map"));
 router.use("/analytics", require("./analytics"));
 router.use("/recommendations", require("./recommendations"));
 // router.use("/public", require("./public"));
-// router.use("/leaderboard", require("./leaderboard"));
+router.use("/leaderboard", require("./leaderboard"));
 
 module.exports = router;
