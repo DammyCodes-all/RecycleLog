@@ -44,6 +44,8 @@ cron.schedule(
 cron.schedule("*/30 * * * * *", async () => {
   try {
     await addWasteToBin();
+    await addWasteToBin();
+    await addWasteToBin();
   } catch (error) {
     console.error("❌ Error adding waste:", error.message);
   }
@@ -52,6 +54,8 @@ cron.schedule("*/30 * * * * *", async () => {
 // Schedule updating bin fill percent every 30 seconds
 cron.schedule("*/30  * * * * *", async () => {
   try {
+    await updateBinFillPercent();
+    await updateBinFillPercent();
     await updateBinFillPercent();
   } catch (error) {
     console.error("❌ Error updating fill percent:", error.message);
