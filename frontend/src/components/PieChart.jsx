@@ -1,13 +1,13 @@
 import { PieChart, Pie, Cell } from "recharts";
 
 const COLORS = [
-  "#10b981",
-  "#a3e635",
-  "#1f2937",
-  "#065f46",
-  "#f87171",
-  "#6b7280",
-  "#6b7980",
+  "#ef4444",
+  "#22c55e",
+  "#3b82f6",
+  "#f59e0b",
+  "#8b5cf6",
+  "#06b6d4",
+  "#64748b",
 ];
 
 const chartConfig = {

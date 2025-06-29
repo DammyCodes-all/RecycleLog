@@ -21,7 +21,6 @@ const DashBoard = () => {
         );
 
         const data = await response.json();
-        console.log("Dashboard Data fetched")
         setDashBoardData((prevData) => ({
           ...prevData,
           bins: bins,
@@ -100,7 +99,7 @@ const DashBoard = () => {
               nameKey="name"
               barColor="#16a34a"
             />
-          </div>{" "}
+          </div>
           {/* AI recommendations */}
           <div className="bg-grey shadow-sm text-forest w-full h-full rounded-md p-6 flex flex-col gap-2 md:row-span-2">
             <p>AI recommendations</p>
@@ -114,7 +113,7 @@ const DashBoard = () => {
           </div>
           {/* Alerts */}
           <div className="bg-error shadow-sm text-forest w-full h-[300px] rounded-md p-4 flex flex-col gap-2 order-2">
-            <p className="text-red-800 font-semibold text-lg">Alerts</p>
+            <p className="text-red-800 font-semibold text-lg">Daily Alerts</p>
             <div className="px-3 text-white flex justify-evenly gap-2 flex-col">
               {alerts.map((item, index) => (
                 <li className="m-0" key={index}>

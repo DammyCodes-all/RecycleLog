@@ -5,6 +5,11 @@ const cron = require("node-cron");
 const connectDB = require("./utils/db");
 const api = require("../src/routes");
 const { saveAIInsights } = require("./utils/ai");
+const {
+  addWasteToBin,
+  updateBinFillPercent,
+  emptyBin,
+} = require("./utils/iot");
 require("dotenv").config();
 
 const app = express();
@@ -35,9 +40,44 @@ cron.schedule(
   }
 );
 
+// Schedule adding waste to bins every 30 seconds
+cron.schedule("*/30 * * * * *", async () => {
+  try {
+    await addWasteToBin();
+  } catch (error) {
+    console.error("❌ Error adding waste:", error.message);
+  }
+});
+
+// Schedule updating bin fill percent every 30 seconds
+cron.schedule("*/30  * * * * *", async () => {
+  try {
+    await updateBinFillPercent();
+  } catch (error) {
+    console.error("❌ Error updating fill percent:", error.message);
+  }
+});
+
+// Schedule emptying bins every 5 minutes
+cron.schedule("*/5 * * * *", async () => {
+  try {
+    await emptyBin();
+    await emptyBin();
+    await emptyBin();
+    await emptyBin();
+    await emptyBin();
+  } catch (error) {
+    console.error("❌ Error emptying bin:", error.message);
+  }
+});
+
 console.log(
   "⏰ AI insights scheduler initialized - will run daily at midnight"
 );
+console.log("🔄 IoT simulation schedulers initialized:");
+console.log("   - Adding waste every 30 seconds");
+console.log("   - Updating fill percent every 30 seconds");
+console.log("   - Emptying bins every 5 minutes");
 
 app.use("/api", api);
 // Root

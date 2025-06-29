@@ -7,14 +7,13 @@ import { useBinContext } from "../appContext";
 
 const Analytics = () => {
   const [chartData, setChartData] = useState({ pieData: [], barData: [] });
-  const { insights } = useBinContext();
+  const { insights, bins } = useBinContext();
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
         "http://localhost:5000/api/analytics/distribution"
       );
       const data = await response.json();
-      console.log(data);
       setChartData((prevData) => ({
         ...prevData,
         pieData: data.pieData.map((item) => ({
@@ -23,12 +22,12 @@ const Analytics = () => {
         })),
         barData: data.barData.map((item) => ({
           name: item.ward,
-          value: item.totalWaste,
+          value: item.totalWasteEntries,
         })),
       }));
     };
     fetchData();
-  }, []);
+  }, [bins]);
 
   const newInsights = insights.insights;
 
@@ -62,7 +61,7 @@ const Analytics = () => {
           {/* Insights Column */}
           <div className="bg-[#e3f4c6] rounded-lg p-4 shadow w-full lg:w-1/3 h-fit max-h-[720px] overflow-y-auto">
             <h2 className="text-lg font-semibold text-green-900 mb-4">
-              Insights
+              Daily Insights
             </h2>
             <ul className="list-disc list-inside space-y-2 text-sm text-green-900">
               {newInsights.map((item, index) => (
