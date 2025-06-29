@@ -1,14 +1,16 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import React, { useEffect, useState } from "react";
-
+import { useBinContext } from "../appContext";
 const Rankings = () => {
   const [rankings, setRankings] = useState([]);
-
+  const { bins } = useBinContext();
   useEffect(() => {
     const fetchRankings = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/leaderboard/regions"); // Adjust base path if needed
+        const response = await fetch(
+          "http://localhost:5000/api/leaderboard/regions"
+        ); // Adjust base path if needed
         const data = await response.json();
 
         const formatted = data.map((item, index) => ({
@@ -16,7 +18,12 @@ const Rankings = () => {
           medal: getMedalByRank(index + 1),
           zone: item.region,
           fill: `${item.avgFill.toFixed(1)}%`,
-          status: item.avgFill < 50 ? "clean" : item.avgFill < 80 ? "moderate" : "dirty",
+          status:
+            item.avgFill < 50
+              ? "clean"
+              : item.avgFill < 80
+              ? "moderate"
+              : "dirty",
         }));
 
         setRankings(formatted);
@@ -26,7 +33,7 @@ const Rankings = () => {
     };
 
     fetchRankings();
-  }, []);
+  }, [bins]);
 
   const getMedalByRank = (rank) => {
     if (rank === 1) return "/First Medal.png";

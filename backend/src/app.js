@@ -23,11 +23,11 @@ app.use(morgan("dev"));
 // Connect to DB
 connectDB();
 
-// Schedule AI insights generation to run at midnight (00:00) every day
+// Schedule AI insights generation to run at 8:30 PM every day
 cron.schedule(
-  "0 0 * * *",
+  "30 20 * * *",
   async () => {
-    console.log("🕛 Midnight: Starting scheduled AI insights generation...");
+    console.log("🕛 8:30 PM: Starting scheduled AI insights generation...");
     try {
       await saveAIInsights();
       console.log("✅ Scheduled AI insights completed successfully");
@@ -67,17 +67,12 @@ cron.schedule("*/5 * * * *", async () => {
   try {
     await emptyBin();
     await emptyBin();
-    await emptyBin();
-    await emptyBin();
-    await emptyBin();
   } catch (error) {
     console.error("❌ Error emptying bin:", error.message);
   }
 });
 
-console.log(
-  "⏰ AI insights scheduler initialized - will run daily at midnight"
-);
+console.log("⏰ AI insights scheduler initialized - will run daily at 8:30 PM");
 console.log("🔄 IoT simulation schedulers initialized:");
 console.log("   - Adding waste every 30 seconds");
 console.log("   - Updating fill percent every 30 seconds");

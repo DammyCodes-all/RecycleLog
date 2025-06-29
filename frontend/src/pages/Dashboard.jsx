@@ -28,6 +28,7 @@ const DashBoard = () => {
           averageFill: data.avgFill,
           topWasteType: data.topWasteType,
         }));
+        console.log(data);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       }
@@ -112,7 +113,7 @@ const DashBoard = () => {
             </div>
           </div>
           {/* Alerts */}
-          <div className="bg-error shadow-sm text-forest w-full h-[300px] rounded-md p-4 flex flex-col gap-2 order-2">
+          <div className="bg-error shadow-sm text-forest w-full h-[400px] rounded-md p-4 flex flex-col gap-2 order-2">
             <p className="text-red-800 font-semibold text-lg">Daily Alerts</p>
             <div className="px-3 text-white flex justify-evenly gap-2 flex-col">
               {alerts.map((item, index) => (

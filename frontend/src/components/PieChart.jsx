@@ -1,39 +1,43 @@
 import { PieChart, Pie, Cell } from "recharts";
 
 const COLORS = [
-  "#ef4444",
-  "#22c55e",
-  "#3b82f6",
-  "#f59e0b",
-  "#8b5cf6",
-  "#06b6d4",
-  "#64748b",
+  "#ef4444", // Red - for Plastic (high visibility)
+  "#22c55e", // Green - for Organic (natural association)
+  "#3b82f6", // Blue - for Paper (professional)
+  "#f59e0b", // Amber - for Mixed (attention-grabbing)
+  "#8b5cf6", // Purple - for Glass (premium feel)
+  "#06b6d4", // Cyan - for E-waste (tech association)
+  "#64748b", // Slate - for additional categories
 ];
 
 const chartConfig = {
-  Paper: {
-    label: "Paper",
-    color: COLORS[0],
-  },
   Plastic: {
     label: "Plastic",
-    color: COLORS[1],
-  },
-  Glass: {
-    label: "Glass",
-    color: COLORS[2],
-  },
-  "E-waste": {
-    label: "E-waste",
-    color: COLORS[3],
+    color: "#ef4444", // Red
   },
   Organic: {
     label: "Organic",
-    color: COLORS[4],
+    color: "#22c55e", // Green
+  },
+  Paper: {
+    label: "Paper",
+    color: "#3b82f6", // Blue
   },
   Mixed: {
     label: "Mixed",
-    color: COLORS[5],
+    color: "#f59e0b", // Amber
+  },
+  Glass: {
+    label: "Glass",
+    color: "#8b5cf6", // Purple
+  },
+  "E-waste": {
+    label: "E-waste",
+    color: "#06b6d4", // Cyan
+  },
+  Metal: {
+    Label: "Metal",
+    color: "#64748b", // Slate
   },
 };
 

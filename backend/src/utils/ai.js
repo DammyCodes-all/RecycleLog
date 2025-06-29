@@ -156,40 +156,89 @@ async function generateAggregatedData() {
   }
 }
 
-// Generate AI insights using aggregated data
+// Get previous insights for pattern recognition
+async function getPrevInsights() {
+  try {
+    const prevRecommendations = await Recommendation.find()
+      .sort({ createdAt: -1 })
+      .limit(3); // Get last 3 insights
+
+    return prevRecommendations.map((rec) => {
+      try {
+        const parsedData = JSON.parse(rec.text);
+        return {
+          timestamp: rec.createdAt,
+          insights: parsedData.insights || [],
+          alerts: parsedData.alerts || [],
+          success: parsedData.success || false,
+        };
+      } catch (parseError) {
+        // Handle legacy text recommendations
+        return {
+          timestamp: rec.createdAt,
+          insights: [rec.text],
+          alerts: [],
+          success: true,
+        };
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching previous insights:", error);
+    return [];
+  }
+}
+
+// Generate AI insights using aggregated data and previous insights
 async function generateWasteInsights() {
   try {
-    const aggregatedData = await generateAggregatedData();
+    const [aggregatedData, prevInsights] = await Promise.all([
+      generateAggregatedData(),
+      getPrevInsights(),
+    ]);
 
     const prompt = `
-Analyze this waste management data and return ONLY valid JSON:
+Analyze this waste management data and return ONLY valid JSON. Use previous insights for pattern recognition and trend analysis:
 
-SUMMARY: ${JSON.stringify(aggregatedData, null, 2)}
+CURRENT DATA: ${JSON.stringify(aggregatedData, null, 2)}
 
-Return EXACTLY this JSON structure with no additional text:
+PREVIOUS INSIGHTS (for pattern recognition):
+${JSON.stringify(prevInsights, null, 2)}
+
+Based on current data and previous patterns, return EXACTLY this JSON structure with no additional text:
 
 {
   "insights": [
-    "Key insight about overall performance",
-    "Pattern discovered in ward performance", 
-    "Fill rate trend observation",
-    "Resource optimization opportunity",
-    "Collection efficiency finding",
-    "Geographic hotspot identification",
-    "Waste type distribution insight",
-    "Operational efficiency observation",
-    "Risk management finding",
-    "Strategic improvement opportunity"
+    "Trend analysis comparing current vs previous patterns",
+    "Ward performance evolution and changes",
+    "Fill rate progression and predictive insights", 
+    "Resource optimization based on historical patterns",
+    "Collection efficiency improvements identified",
+    "Geographic hotspot pattern recognition",
+    "Waste type distribution trends over time",
+    "Operational efficiency changes observed",
+    "Risk management patterns and predictions",
+    "Strategic improvements based on historical data"
   ],
   "alerts": [
-     This is a brief message of an alert and brief solutions
-     This is a brief message of an alert and brief solutions
-     This is a brief message of an alert and brief solutions
+    "Brief alert message with trend context and solutions",
+    "Pattern-based warning with historical comparison",
+    "Predictive alert based on observed trends"
   ]
 }
 
+ANALYSIS GUIDELINES:
+- Compare current metrics with previous insights
+- Identify improving or deteriorating trends
+- Look for recurring patterns in critical bins
+- Analyze ward performance changes over time
+- Provide predictive insights based on historical data
+- Focus on actionable recommendations
+- Highlight successful interventions from previous periods
+
 IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
 `;
+
+    console.log("🤖 Making AI API call...");
 
     const completion = await openai.chat.completions.create({
       model: "deepseek/deepseek-chat-v3-0324:free",
@@ -197,7 +246,7 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
         {
           role: "system",
           content:
-            "You are a waste management analyst. Return ONLY valid JSON with no additional text.",
+            "You are a waste management analyst with access to historical data. Analyze patterns and trends to provide predictive insights. Return ONLY valid JSON with no additional text.",
         },
         {
           role: "user",
@@ -208,7 +257,19 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
       max_tokens: 1500,
     });
 
-    const responseText = completion.choices[0].message.content.trim();
+    // Check if the response is valid
+    if (!completion || !completion.choices || completion.choices.length === 0) {
+      console.error("Invalid AI response structure:", completion);
+      throw new Error("AI API returned invalid response structure");
+    }
+
+    const responseText = completion.choices[0].message?.content?.trim();
+
+    if (!responseText) {
+      console.error("Empty response from AI");
+      throw new Error("AI API returned empty response");
+    }
+
     console.log("Raw AI Response:", responseText);
 
     // Parse the JSON response
@@ -219,12 +280,21 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
       const jsonText = jsonMatch ? jsonMatch[0] : responseText;
 
       parsedResponse = JSON.parse(jsonText);
+
+      // Validate the parsed response has required fields
+      if (!parsedResponse.insights || !Array.isArray(parsedResponse.insights)) {
+        throw new Error("Invalid response format - missing insights array");
+      }
+
+      if (!parsedResponse.alerts || !Array.isArray(parsedResponse.alerts)) {
+        throw new Error("Invalid response format - missing alerts array");
+      }
     } catch (parseError) {
       console.error("JSON Parse Error:", parseError);
       console.error("Response was:", responseText);
 
       // Fallback if parsing fails
-      throw new Error("Invalid JSON response from AI");
+      throw new Error(`Invalid JSON response from AI: ${parseError.message}`);
     }
 
     return {
@@ -234,52 +304,42 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
       insights: parsedResponse.insights || [],
       alerts: parsedResponse.alerts || [],
       rawData: aggregatedData,
+      previousInsights: prevInsights.length,
     };
   } catch (error) {
     console.error("AI Insights Error:", error);
 
-    // Fallback response with basic aggregated data
-    const basicData = await generateAggregatedData().catch(() => null);
+    // Generate fallback response with current data
+    const basicData = await generateAggregatedData().catch(() => ({
+      summary: { total: 0, averageFill: 0 },
+      criticalBins: [],
+      wards: [],
+    }));
 
     return {
       success: false,
       error: error.message,
-      insights: basicData
-        ? [
-            `Total of ${basicData.summary.total} bins monitored`,
-            `Average fill level is ${basicData.summary.averageFill}%`,
-            `${basicData.criticalBins.length} bins at critical capacity`,
-            `${basicData.wards.length} wards in monitoring system`,
-            "AI analysis temporarily unavailable",
-            "Manual review recommended for critical bins",
-            "Ward performance varies significantly",
-            "Collection optimization needed",
-            "Real-time monitoring active",
-            "System requires attention",
-          ]
-        : [],
-      alerts: basicData
-        ? [
-            {
-              type: "critical",
-              message: `${basicData.criticalBins.length} bins require immediate collection`,
-              ward: "Multiple",
-              action: "Schedule urgent collection",
-            },
-            {
-              type: "warning",
-              message: "AI system unavailable",
-              ward: "System",
-              action: "Manual analysis required",
-            },
-            {
-              type: "info",
-              message: "Monitoring system operational",
-              ward: "All",
-              action: "Continue monitoring",
-            },
-          ]
-        : [],
+      timestamp: new Date().toISOString(),
+      dataAnalyzed: basicData.summary.total,
+      insights: [
+        `Total of ${basicData.summary.total} bins monitored across Lagos State`,
+        `System average fill level is ${basicData.summary.averageFill}%`,
+        `${basicData.criticalBins.length} bins currently at critical capacity (>80%)`,
+        `${basicData.wards.length} wards actively participating in smart waste monitoring`,
+        "AI analysis temporarily unavailable - using fallback insights",
+        "Manual review recommended for critical bins requiring immediate attention",
+        "Ward performance monitoring continues with real-time data collection",
+        "Collection route optimization needed based on current fill levels",
+        "Real-time IoT monitoring system operational and collecting data",
+        "Recommend immediate attention to bins exceeding 80% capacity",
+      ],
+      alerts: [
+        `URGENT: ${basicData.criticalBins.length} bins require immediate collection`,
+        "AI system temporarily unavailable - manual monitoring in effect",
+        "Continue surveillance - system data collection remains operational",
+      ],
+      rawData: basicData,
+      previousInsights: 0,
     };
   }
 }
@@ -287,6 +347,7 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
 // Save AI insights as stringified JSON
 async function saveAIInsights() {
   try {
+    console.log("🔄 Starting AI insights generation...");
     const aiResult = await generateWasteInsights();
 
     const recommendation = new Recommendation({
@@ -295,11 +356,34 @@ async function saveAIInsights() {
     });
 
     await recommendation.save();
-    console.log("✅ AI insights saved to database");
+    console.log("✅ AI insights saved to database successfully");
 
     return recommendation;
   } catch (error) {
     console.error("❌ Failed to save AI insights:", error);
+
+    // Create a basic fallback recommendation
+    try {
+      const fallbackRecommendation = new Recommendation({
+        text: JSON.stringify({
+          success: false,
+          error: "System error during insights generation",
+          timestamp: new Date().toISOString(),
+          insights: ["System monitoring active", "Manual review recommended"],
+          alerts: ["AI insights generation failed - check system logs"],
+        }),
+        relatedZone: "System Error",
+      });
+
+      await fallbackRecommendation.save();
+      console.log("✅ Fallback recommendation saved");
+    } catch (fallbackError) {
+      console.error(
+        "❌ Failed to save fallback recommendation:",
+        fallbackError
+      );
+    }
+
     throw error;
   }
 }
@@ -307,6 +391,7 @@ async function saveAIInsights() {
 module.exports = {
   generateWasteInsights,
   generateAggregatedData,
+  getPrevInsights,
   openai,
   saveAIInsights,
 };
