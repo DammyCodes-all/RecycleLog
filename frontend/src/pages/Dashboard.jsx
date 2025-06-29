@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useBinContext } from "../appContext";
 
 const DashBoard = () => {
-  const { bins } = useBinContext();
+  const { bins, insights } = useBinContext();
   const [dashBoardData, setDashBoardData] = useState({
     bins: [],
     totalBins: 0,
@@ -20,10 +20,8 @@ const DashBoard = () => {
           "http://localhost:5000/api/dashboard/stats"
         );
 
-        // Parse both responses in parallel
         const data = await response.json();
-        console.log(data);
-
+        console.log("Dashboard Data fetched")
         setDashBoardData((prevData) => ({
           ...prevData,
           bins: bins,
@@ -46,22 +44,9 @@ const DashBoard = () => {
     { title: "Top waste type", content: dashBoardData.topWasteType },
   ];
 
-  const insights = [
-    "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-    "High percentage of non-recyclables mixed with glass in Ward 7. Recommend signage or community education on proper sorting.",
-    "Waste collection trends based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30% on proper sorting.",
-    "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-    "High percentage of non-recyclables mixed with glass in Ward 7. Recommend signage or community education on proper sorting.",
-    "Waste collection trends based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30% on proper sorting.",
-    "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-    "High percentage of non-recyclables",
-  ];
+  const newInsights = insights.insights;
 
-  const alerts = [
-    "Waste collection trends based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30% on proper sorting.",
-    "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-    "High percentage of non-recyclables",
-  ];
+  const alerts = insights.alerts;
 
   // Bar chart data for dashboard
   const getAvgFillByWard = (bins, ward) => {
@@ -119,18 +104,20 @@ const DashBoard = () => {
           {/* AI recommendations */}
           <div className="bg-grey shadow-sm text-forest w-full h-full rounded-md p-6 flex flex-col gap-2 md:row-span-2">
             <p>AI recommendations</p>
-            <div className="px-3">
-              {insights.map((item, index) => (
-                <li key={index}>{item}</li>
+            <div className="px-2">
+              {newInsights.map((item, index) => (
+                <li key={index} className="m-0">
+                  {item}
+                </li>
               ))}
             </div>
           </div>
           {/* Alerts */}
-          <div className="bg-error shadow-sm text-forest w-full h-full rounded-md p-4 flex flex-col gap-2 order-2">
+          <div className="bg-error shadow-sm text-forest w-full h-[300px] rounded-md p-4 flex flex-col gap-2 order-2">
             <p className="text-red-800 font-semibold text-lg">Alerts</p>
             <div className="px-3 text-white flex justify-evenly gap-2 flex-col">
               {alerts.map((item, index) => (
-                <li className="list-none" key={index}>
+                <li className="m-0" key={index}>
                   {item}
                 </li>
               ))}

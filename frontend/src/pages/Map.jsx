@@ -30,8 +30,8 @@ const MapPage = () => {
     };
     fetchData();
   }, []);
-  const { bins } = useBinContext();
-
+  const { bins, insights } = useBinContext();
+  const alerts = insights.alerts || [];
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
@@ -43,13 +43,12 @@ const MapPage = () => {
 
             <div className="w-full md:w-72 space-y-4">
               <h2 className="text-xl font-semibold text-red-600">Alerts</h2>
-              {[1, 2, 3].map((i) => (
+              {alerts.map((item, index) => (
                 <div
-                  key={i}
+                  key={index}
                   className="bg-white p-4 rounded-md shadow text-sm border-l-4 border-red-300 text-red-700"
                 >
-                  Based on last month's waste profile, a composting education
-                  drive in Residential Wards could reduce organic landfill con
+                  {item}
                 </div>
               ))}
             </div>

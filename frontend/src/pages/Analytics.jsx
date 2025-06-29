@@ -3,20 +3,11 @@ import Topbar from "../components/Topbar";
 import { useEffect, useState } from "react";
 import ZonePieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
-
-const insights = [
-  "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-  "High percentage of non-recyclables mixed with glass in Ward 7. Recommend signage or community education on proper sorting.",
-  "Waste collection trends based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30% on proper sorting.",
-  "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-  "High percentage of non-recyclables mixed with glass in Ward 7. Recommend signage or community education on proper sorting.",
-  "Waste collection trends based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30% on proper sorting.",
-  "Based on last month's waste profile, a composting education drive in Residential Wards could reduce organic landfill contribution by 30%.",
-  "High percentage of non-recyclables",
-];
+import { useBinContext } from "../appContext";
 
 const Analytics = () => {
   const [chartData, setChartData] = useState({ pieData: [], barData: [] });
+  const { insights } = useBinContext();
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -38,6 +29,8 @@ const Analytics = () => {
     };
     fetchData();
   }, []);
+
+  const newInsights = insights.insights;
 
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
@@ -72,7 +65,7 @@ const Analytics = () => {
               Insights
             </h2>
             <ul className="list-disc list-inside space-y-2 text-sm text-green-900">
-              {insights.map((item, index) => (
+              {newInsights.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
