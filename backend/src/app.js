@@ -23,11 +23,11 @@ app.use(morgan("dev"));
 // Connect to DB
 connectDB();
 
-// Schedule AI insights generation to run at 8:30 PM every day
+// Schedule AI insights generation to run at 8:10 AM every day
 cron.schedule(
-  "30 20 * * *",
+  "10 8 * * *",
   async () => {
-    console.log("🕛 8:30 PM: Starting scheduled AI insights generation...");
+    console.log("🌅 8:10 AM: Starting scheduled AI insights generation...");
     try {
       await saveAIInsights();
       console.log("✅ Scheduled AI insights completed successfully");
@@ -46,14 +46,16 @@ cron.schedule("*/30 * * * * *", async () => {
     await addWasteToBin();
     await addWasteToBin();
     await addWasteToBin();
+    await addWasteToBin();
   } catch (error) {
     console.error("❌ Error adding waste:", error.message);
   }
 });
 
 // Schedule updating bin fill percent every 30 seconds
-cron.schedule("*/30  * * * * *", async () => {
+cron.schedule("*/30 * * * * *", async () => {
   try {
+    await updateBinFillPercent();
     await updateBinFillPercent();
     await updateBinFillPercent();
     await updateBinFillPercent();
@@ -72,13 +74,14 @@ cron.schedule("*/5 * * * *", async () => {
   }
 });
 
-console.log("⏰ AI insights scheduler initialized - will run daily at 8:30 PM");
+console.log("⏰ AI insights scheduler initialized - will run daily at 8:10 AM");
 console.log("🔄 IoT simulation schedulers initialized:");
 console.log("   - Adding waste every 30 seconds");
 console.log("   - Updating fill percent every 30 seconds");
 console.log("   - Emptying bins every 5 minutes");
 
 app.use("/api", api);
+
 // Root
 app.get("/", (req, res) => {
   res.send("RecycLog AI Backend Running");

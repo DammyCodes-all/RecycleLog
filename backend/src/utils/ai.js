@@ -234,6 +234,7 @@ ANALYSIS GUIDELINES:
 - Provide predictive insights based on historical data
 - Focus on actionable recommendations
 - Highlight successful interventions from previous periods
+-Something thatll look smooth on a dashborad not bulky text.
 
 IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
 `;
@@ -253,7 +254,7 @@ IMPORTANT: Return ONLY the JSON object, no additional text or explanations.
           content: prompt,
         },
       ],
-      temperature: 0.1, // Lower temperature for more consistent output
+      temperature: 0.2, // Lower temperature for more consistent output
       max_tokens: 1500,
     });
 

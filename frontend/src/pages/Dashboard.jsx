@@ -103,7 +103,7 @@ const DashBoard = () => {
           </div>
           {/* AI recommendations */}
           <div className="bg-grey shadow-sm text-forest w-full h-full rounded-md p-6 flex flex-col gap-2 md:row-span-2">
-            <p>AI recommendations</p>
+            <p>AI insights</p>
             <div className="px-2">
               {newInsights.map((item, index) => (
                 <li key={index} className="m-0">
@@ -113,7 +113,7 @@ const DashBoard = () => {
             </div>
           </div>
           {/* Alerts */}
-          <div className="bg-error shadow-sm text-forest w-full h-[400px] rounded-md p-4 flex flex-col gap-2 order-2">
+          <div className="bg-error shadow-sm text-forest w-full justify-evenly rounded-md p-4 flex flex-col gap-2 order-2">
             <p className="text-red-800 font-semibold text-lg">Daily Alerts</p>
             <div className="px-3 text-white flex justify-evenly gap-2 flex-col">
               {alerts.map((item, index) => (

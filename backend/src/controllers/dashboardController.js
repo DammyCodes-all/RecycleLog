@@ -11,12 +11,13 @@ exports.getStats = async (req, res) => {
       { $group: { _id: null, avgFill: { $avg: "$bin_fill_percent" } } },
     ]);
 
-    // Fixed: This aggregation was counting waste entries, not unique waste types
+    // Fixed: Get top waste type by COUNT, not weight
     const topType = await Bin.aggregate([
       { $unwind: "$waste_breakdown" },
       {
         $group: {
           _id: "$waste_breakdown.waste_type",
+          count: { $sum: 1 }, // Count occurrences
           totalWeight: { $sum: "$waste_breakdown.weight" },
           binCount: { $addToSet: "$_id" }, // Count unique bins with this waste type
         },
@@ -26,7 +27,7 @@ exports.getStats = async (req, res) => {
           binCount: { $size: "$binCount" }, // Convert to actual count
         },
       },
-      { $sort: { totalWeight: -1 } },
+      { $sort: { count: -1 } }, // Sort by count instead of weight
       { $limit: 1 },
     ]);
 
@@ -44,22 +45,23 @@ exports.getStats = async (req, res) => {
       {
         $group: {
           _id: "$waste_breakdown.waste_type",
+          count: { $sum: 1 }, // Count occurrences
           totalWeight: { $sum: "$waste_breakdown.weight" },
           avgWeight: { $avg: "$waste_breakdown.weight" },
-          count: { $sum: 1 },
         },
       },
-      { $sort: { totalWeight: -1 } },
+      { $sort: { count: -1 } }, // Sort by count instead of weight
     ]);
 
     res.json({
       totalBins,
-      avgFill: Math.round((avgFill[0]?.avgFill || 0) * 100) / 100, // Round to 2 decimal places
+      avgFill: Math.round((avgFill[0]?.avgFill || 0) * 100) / 100,
       topWasteType: topType[0]?._id || null,
-      topWasteTypeWeight: topType[0]?.totalWeight || 0,
+      topWasteTypeCount: topType[0]?.count || 0, // Return count instead of weight
+      topWasteTypeWeight: topType[0]?.totalWeight || 0, // Keep weight for reference
       binsNearOverflow: binsNearOverflow,
       overflowCount: binsNearOverflow.length,
-      wasteDistribution: wasteDistribution.slice(0, 5), // Top 5 waste types
+      wasteDistribution: wasteDistribution.slice(0, 5), // Top 5 waste types by count
     });
   } catch (err) {
     console.error(err);
