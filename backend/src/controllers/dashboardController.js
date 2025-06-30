@@ -26,7 +26,7 @@ exports.getStats = async (req, res) => {
           binCount: { $size: "$binCount" }, // Convert to actual count
         },
       },
-      { $sort: { totalWeight: -1 } },
+      { $sort: { count: -1 } },
       { $limit: 1 },
     ]);
 

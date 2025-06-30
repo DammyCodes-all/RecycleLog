@@ -63,7 +63,7 @@ cron.schedule("*/30  * * * * *", async () => {
 });
 
 // Schedule emptying bins every 5 minutes
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/3 * * * *", async () => {
   try {
     await emptyBin();
     await emptyBin();
