@@ -9,9 +9,9 @@ const DashBoard = () => {
   const { bins, insights } = useBinContext();
   const [dashBoardData, setDashBoardData] = useState({
     bins: [],
-    totalBins: 0,
-    topWasteType: "  ",
-    averageFill: 0,
+    totalBins: "Loading...",
+    topWasteType: "Loading...",
+    averageFill: "Loading...",
     wardData: [],
   });
   useEffect(() => {
@@ -37,16 +37,21 @@ const DashBoard = () => {
     fetchData();
   }, [bins]);
   const analyticsContent = [
-    { title: "Total Bins", content: `${dashBoardData.totalBins} bins` },
+    {
+      title: "Total Bins",
+      content: `${dashBoardData.totalBins}${
+        typeof dashBoardData.totalBins == "number" ? " bins" : ""
+      } `,
+    },
     {
       title: "Average Fill",
-      content: `${Math.floor(dashBoardData.averageFill)}%`,
+      content: `${Math.floor(dashBoardData.averageFill) || "Loading..."}%`,
     },
     { title: "Top waste type", content: dashBoardData.topWasteType },
   ];
 
-  const newInsights = insights.insights;
-  const alerts = insights.alerts;
+  const newInsights = insights.insights || ["Loading...."];
+  const alerts = insights.alerts || ["Loading..."];
   const wardData = dashBoardData.wardData;
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">

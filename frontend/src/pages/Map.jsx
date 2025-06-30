@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 const MapPage = () => {
   const { bins, insights } = useBinContext();
   const [statsData, setStatsData] = useState([
-    { title: "Total Active Bins", content: "10,781 bins" },
-    { title: "Bins Near Overflow", content: "23" },
-    { title: "Most Common Waste", content: "Plastic" },
+    { title: "Total Active Bins", content: "Loading..." },
+    { title: "Bins Near Overflow", content: "Loading..." },
+    { title: "Most Common Waste", content: "Loading..." },
   ]);
   const [binData, setBins] = useState([]);
   useEffect(() => {

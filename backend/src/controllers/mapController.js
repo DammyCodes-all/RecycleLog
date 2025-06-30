@@ -16,9 +16,6 @@ const getHeatMap = async (req, res) => {
         status = "warning";
       }
 
-      // Generate name from bin_id and location
-      const name = `Bin ${bin.bin_id}`;
-
       // Format last collection date
       const lastCollection = bin.updatedAt
         ? bin.updatedAt.toISOString().split("T")[0]
@@ -26,7 +23,7 @@ const getHeatMap = async (req, res) => {
 
       return {
         bin_id: bin.bin_id,
-        name: name,
+        name: bin.name,
         bin_fill_percent: bin.bin_fill_percent,
         location: bin.location, // [longitude, latitude]
         status: status,

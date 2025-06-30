@@ -29,7 +29,7 @@ const Analytics = () => {
     fetchData();
   }, [bins]);
 
-  const newInsights = insights.insights;
+  const newInsights = insights.insights || ["Loading..."];
 
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
