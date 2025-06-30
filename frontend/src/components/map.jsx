@@ -230,8 +230,8 @@ export default function BinMap({ bins }) {
               }}
             >
               <Tooltip>
-                <div className="font-outfit flex flex-col justify-center p-2">
-                  <div className="flex items-center gap-2 mb-1">
+                <div className="font-outfit flex flex-col justify-center p-1">
+                  <div className="flex items-center gap-2">
                     {bin.bin_fill_percent >= 80 ? (
                       <AlertCircle size={16} className="text-red-600" />
                     ) : bin.bin_fill_percent >= 60 ? (
@@ -243,8 +243,8 @@ export default function BinMap({ bins }) {
                     )}
                     <strong className="text-forest">{bin.ward}</strong>
                   </div>
-                  <strong className="text-forest mb-1">{bin.name}</strong>
-                  <span className="text-primary font-medium">
+                  <strong className="text-forest">{bin.name}</strong>
+                  <span className="text-primary font-semibold text-md">
                     Fill Level: {bin.bin_fill_percent}%
                   </span>
                   <span
@@ -258,7 +258,7 @@ export default function BinMap({ bins }) {
                         : "text-green-600"
                     }`}
                   >
-                    Status:{" "}
+                    Status:
                     {bin.bin_fill_percent >= 80
                       ? "🚨 Critical"
                       : bin.bin_fill_percent >= 60

@@ -23,16 +23,16 @@ app.use(morgan("dev"));
 // Connect to DB
 connectDB();
 
-// Schedule AI insights generation to run at 8:10 AM every day
+// Schedule AI insights generation to run every 40 minutes
 cron.schedule(
-  "10 8 * * *",
+  "*/40 * * * *",
   async () => {
-    console.log("🌅 8:10 AM: Starting scheduled AI insights generation...");
+    console.log("🤖 Every 40 minutes: Starting AI insights generation...");
     try {
       await saveAIInsights();
-      console.log("✅ Scheduled AI insights completed successfully");
+      console.log("✅ AI insights completed successfully");
     } catch (error) {
-      console.error("❌ Scheduled AI insights failed:", error.message);
+      console.error("❌ AI insights failed:", error.message);
     }
   },
   {
@@ -45,8 +45,6 @@ cron.schedule("*/30 * * * * *", async () => {
   try {
     await addWasteToBin();
     await addWasteToBin();
-    await addWasteToBin();
-    await addWasteToBin();
   } catch (error) {
     console.error("❌ Error adding waste:", error.message);
   }
@@ -57,16 +55,17 @@ cron.schedule("*/30 * * * * *", async () => {
   try {
     await updateBinFillPercent();
     await updateBinFillPercent();
-    await updateBinFillPercent();
-    await updateBinFillPercent();
   } catch (error) {
     console.error("❌ Error updating fill percent:", error.message);
   }
 });
 
-// Schedule emptying bins every 5 minutes
+// Schedule emptying bins every 3 minutes
 cron.schedule("*/3 * * * *", async () => {
   try {
+    await emptyBin();
+    await emptyBin();
+    await emptyBin();
     await emptyBin();
     await emptyBin();
   } catch (error) {
@@ -74,11 +73,11 @@ cron.schedule("*/3 * * * *", async () => {
   }
 });
 
-console.log("⏰ AI insights scheduler initialized - will run daily at 8:10 AM");
+console.log("⏰ AI insights scheduler initialized - will run every 40 minutes");
 console.log("🔄 IoT simulation schedulers initialized:");
 console.log("   - Adding waste every 30 seconds");
 console.log("   - Updating fill percent every 30 seconds");
-console.log("   - Emptying bins every 5 minutes");
+console.log("   - Emptying bins every 3 minutes");
 
 app.use("/api", api);
 

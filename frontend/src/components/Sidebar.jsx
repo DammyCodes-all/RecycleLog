@@ -147,22 +147,22 @@ const Sidebar = ({ className }) => {
                     <Collapsible.Content className="overflow-hidden data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp">
                       <div className="space-y-1 mt-1">
                         {item.submenu.map((subItem) => (
-                          <a
+                          <Link
                             key={subItem.href}
-                            href={subItem.href}
+                            to={subItem.href}
                             className="flex items-center pl-10 pr-3 py-2 text-sm font-normal text-mint hover:text-mint hover:bg-primary/20 rounded-md transition-colors"
                           >
                             <span className="w-2 h-2 bg-mint rounded-full mr-3"></span>
                             {subItem.label}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </Collapsible.Content>
                   )}
                 </Collapsible.Root>
               ) : (
-                <a
-                  href={item.href}
+                <Link
+                  to={item.href}
                   className={cn(
                     "flex items-center w-full px-4 py-3 text-mint rounded-md hover:bg-primary/20 hover:text-mint transition-colors",
                     isCollapsed && "justify-center px-2"
@@ -174,7 +174,7 @@ const Sidebar = ({ className }) => {
                   {!isCollapsed && (
                     <span className="text-mint">{item.label}</span>
                   )}
-                </a>
+                </Link>
               )}
             </div>
           ))}

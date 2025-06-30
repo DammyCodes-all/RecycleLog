@@ -30,7 +30,6 @@ const DashBoard = () => {
           topWasteType: data.topWasteType,
           wardData: data.wardData,
         }));
-        console.log(data);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       }
@@ -47,9 +46,7 @@ const DashBoard = () => {
   ];
 
   const newInsights = insights.insights;
-
   const alerts = insights.alerts;
-
   const wardData = dashBoardData.wardData;
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">

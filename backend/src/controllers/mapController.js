@@ -4,7 +4,7 @@ const Bin = require("../models/Bin");
 const getHeatMap = async (req, res) => {
   try {
     const bins = await Bin.find().select(
-      "bin_id location bin_fill_percent waste_type updatedAt"
+      "bin_id location bin_fill_percent ward name updatedAt"
     );
 
     const mapBins = bins.map((bin) => {
@@ -25,13 +25,12 @@ const getHeatMap = async (req, res) => {
         : new Date().toISOString().split("T")[0];
 
       return {
-        id: bin.bin_id,
+        bin_id: bin.bin_id,
         name: name,
-        fill: bin.bin_fill_percent,
-        position: bin.location, // [longitude, latitude]
+        bin_fill_percent: bin.bin_fill_percent,
+        location: bin.location, // [longitude, latitude]
         status: status,
-        lastCollection: lastCollection,
-        wasteType: bin.waste_type,
+        ward: bin.ward,
       };
     });
 

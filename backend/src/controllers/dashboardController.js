@@ -19,7 +19,6 @@ exports.getStats = async (req, res) => {
           _id: "$waste_breakdown.waste_type",
           count: { $sum: 1 }, // Count occurrences
           totalWeight: { $sum: "$waste_breakdown.weight" },
-          count: { $sum: 1 }, // Count frequency
           binCount: { $addToSet: "$_id" }, // Count unique bins with this waste type
         },
       },
@@ -54,6 +53,30 @@ exports.getStats = async (req, res) => {
       { $sort: { count: -1 } }, // Sort by count instead of weight
     ]);
 
+    // Get ward data with average fill levels
+    const wardData = await Bin.aggregate([
+      {
+        $group: {
+          _id: "$ward",
+          avgFill: { $avg: "$bin_fill_percent" },
+          binCount: { $sum: 1 },
+          criticalBins: {
+            $sum: {
+              $cond: [{ $gte: ["$bin_fill_percent", 80] }, 1, 0],
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          name: "$_id",
+          value: { $round: ["$avgFill", 1] }, // Round to 1 decimal place
+          _id: 0,
+        },
+      },
+      { $sort: { name: 1 } }, // Sort alphabetically by ward name
+    ]);
+
     res.json({
       totalBins,
       avgFill: Math.round((avgFill[0]?.avgFill || 0) * 100) / 100,
@@ -63,6 +86,7 @@ exports.getStats = async (req, res) => {
       binsNearOverflow: binsNearOverflow,
       overflowCount: binsNearOverflow.length,
       wasteDistribution: wasteDistribution.slice(0, 5), // Top 5 waste types by count
+      wardData: wardData, // Ward average fill levels
     });
   } catch (err) {
     console.error(err);

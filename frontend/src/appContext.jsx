@@ -20,13 +20,11 @@ export const ContextProvider = ({ children }) => {
     insights: [],
     alerts: [],
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   // Memoize fetch functions to prevent unnecessary re-renders
   const fetchBinData = useCallback(async () => {
     try {
-      setIsLoading(true);
+      console.log("Fetching and syncing ");
       const response = await fetch("http://localhost:5000/api/bins");
 
       if (!response.ok) {
@@ -35,12 +33,10 @@ export const ContextProvider = ({ children }) => {
 
       const data = await response.json();
       const bins = data.data;
-
+      console.log("Finished fetching and syncing ");
       setBins(bins);
-      setError(null);
     } catch (error) {
       console.error("Error fetching bin data:", error);
-      setError(error.message);
     }
   }, []);
 
@@ -57,33 +53,18 @@ export const ContextProvider = ({ children }) => {
       if (data && data[0] && data[0].text) {
         const parsedData = JSON.parse(data[0].text);
 
-        setInsights((prevInsights) => {
-          const hasChanged =
-            JSON.stringify(prevInsights) !==
-            JSON.stringify({
-              insights: parsedData.insights,
-              alerts: parsedData.alerts,
-            });
-
-          return hasChanged
-            ? {
-                insights: parsedData.insights || [],
-                alerts: parsedData.alerts || [],
-              }
-            : prevInsights;
-        });
+        setInsights(parsedData);
       }
     } catch (error) {
       console.error("Error fetching insights data:", error);
-      setError(error.message);
     }
   }, []);
 
   useEffect(() => {
     // Initial fetch
-    fetchBinData();
-    const fetchInterval = setInterval(fetchBinData, 10000);
     fetchInsightsData();
+    fetchBinData();
+    const fetchInterval = setInterval(fetchBinData, 30000);
     // Cleanup function
     return () => {
       clearInterval(fetchInterval);
@@ -95,12 +76,10 @@ export const ContextProvider = ({ children }) => {
     () => ({
       bins,
       insights,
-      isLoading,
-      error,
       refetchBins: fetchBinData,
       refetchInsights: fetchInsightsData,
     }),
-    [bins, insights, isLoading, error, fetchBinData, fetchInsightsData]
+    [bins, insights, fetchBinData, fetchInsightsData]
   );
 
   return (

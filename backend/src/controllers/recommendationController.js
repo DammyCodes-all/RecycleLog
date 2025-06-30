@@ -4,7 +4,12 @@ const Bin = require('../models/Bin');
 // GET /recommendations
 exports.getRecommendations = async (req, res) => {
   try {
-    const recs = await Recommendation.find().sort({ createdAt: -1 });
+    // Limit results and only get essential fields
+    const recs = await Recommendation.find()
+      .select('text createdAt') 
+      .sort({ createdAt: -1 })
+      .limit(2); 
+    
     res.json(recs);
   } catch (err) {
     console.error(err);
