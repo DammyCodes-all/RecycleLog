@@ -15,31 +15,11 @@ const appContext = createContext({
 });
 
 export const ContextProvider = ({ children }) => {
-  const [bins, setBins] = useState([]);
   const [insights, setInsights] = useState({
     insights: [],
     alerts: [],
   });
   const [mapData, setMapData] = useState([]);
-
-  // Memoize fetch functions to prevent unnecessary re-renders
-  const fetchBinData = useCallback(async () => {
-    try {
-      console.log("Fetching and syncing ");
-      const response = await fetch("http://localhost:5000/api/bins");
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const bins = data.data;
-      console.log("Finished fetching and syncing ");
-      setBins(bins);
-    } catch (error) {
-      console.error("Error fetching bin data:", error);
-    }
-  }, []);
 
   const fetchInsightsData = useCallback(async () => {
     try {
@@ -73,27 +53,23 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     // Initial fetch
     fetchInsightsData();
-    fetchBinData();
     const fetchInterval = setInterval(() => {
-      fetchBinData();
       fetchMapData();
-    }, 30000);
+    }, 20000);
     // Cleanup function
     return () => {
       clearInterval(fetchInterval);
     };
-  }, [fetchBinData, fetchInsightsData, fetchMapData]);
+  }, [fetchInsightsData, fetchMapData]);
 
   // Memoize context value to prevent unnecessary re-renders
   const contextValue = useMemo(
     () => ({
-      bins,
       insights,
       mapData,
-      refetchBins: fetchBinData,
       refetchInsights: fetchInsightsData,
     }),
-    [bins, insights, fetchBinData, fetchInsightsData, mapData]
+    [insights, fetchInsightsData, mapData]
   );
 
   return (

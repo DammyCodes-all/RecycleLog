@@ -25,7 +25,7 @@ connectDB();
 
 // Schedule AI insights generation to run every 40 minutes
 cron.schedule(
-  "*/40 * * * *",
+  "*/60 * * * *",
   async () => {
     console.log("🤖 Every 40 minutes: Starting AI insights generation...");
     try {
@@ -43,7 +43,7 @@ cron.schedule(
 // Schedule adding waste to bins every 30 seconds
 cron.schedule("*/30 * * * * *", async () => {
   try {
-    const randomTimes = Math.floor(Math.random() * 5) + 1;
+    const randomTimes = Math.floor(Math.random() * 6) + 1;
     for (let i = 0; i < randomTimes; i++) {
       await addWasteToBin();
     }

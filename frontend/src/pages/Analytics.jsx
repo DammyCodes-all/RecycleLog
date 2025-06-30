@@ -4,30 +4,35 @@ import { useEffect, useState } from "react";
 import ZonePieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
 import { useBinContext } from "../appContext";
-
+import { useCallback } from "react";
 const Analytics = () => {
   const [chartData, setChartData] = useState({ pieData: [], barData: [] });
-  const { insights, bins } = useBinContext();
+  const { insights } = useBinContext();
+
+  const fetchData = useCallback(async () => {
+    const response = await fetch(
+      "http://localhost:5000/api/analytics/distribution"
+    );
+    const data = await response.json();
+    setChartData((prevData) => ({
+      ...prevData,
+      pieData: data.pieData.map((item) => ({
+        name: item.wasteType,
+        value: item.count,
+      })),
+      barData: data.barData.map((item) => ({
+        name: item.ward,
+        value: item.totalWasteEntries,
+      })),
+    }));
+  }, []);
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "http://localhost:5000/api/analytics/distribution"
-      );
-      const data = await response.json();
-      setChartData((prevData) => ({
-        ...prevData,
-        pieData: data.pieData.map((item) => ({
-          name: item.wasteType,
-          value: item.count,
-        })),
-        barData: data.barData.map((item) => ({
-          name: item.ward,
-          value: item.totalWasteEntries,
-        })),
-      }));
-    };
     fetchData();
-  }, [bins]);
+    const fetchInterval = setInterval(fetchData, 10000);
+    return () => {
+      clearInterval(fetchInterval);
+    };
+  }, [fetchData]);
 
   const newInsights = insights.insights || ["Loading..."];
 

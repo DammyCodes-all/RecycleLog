@@ -33,6 +33,8 @@ const Rankings = () => {
     };
 
     fetchRankings();
+    const fetchInterval = setInterval(fetchRankings, 10000);
+    return clearInterval(fetchInterval);
   }, [bins]);
 
   const getMedalByRank = (rank) => {

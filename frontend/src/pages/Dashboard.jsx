@@ -2,40 +2,40 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import BarChart from "../components/BarChart";
 import AnalyticsBar from "../components/AnalyticsBar";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useBinContext } from "../appContext";
 
 const DashBoard = () => {
-  const { bins, insights } = useBinContext();
+  const { insights } = useBinContext();
   const [dashBoardData, setDashBoardData] = useState({
-    bins: [],
     totalBins: "Loading...",
     topWasteType: "Loading...",
     averageFill: "Loading...",
     wardData: [],
   });
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/dashboard/stats"
-        );
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/dashboard/stats");
 
-        const data = await response.json();
-        setDashBoardData((prevData) => ({
-          ...prevData,
-          bins: bins,
-          totalBins: data.totalBins,
-          averageFill: data.avgFill,
-          topWasteType: data.topWasteType,
-          wardData: data.wardData,
-        }));
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      }
-    };
+      const data = await response.json();
+      setDashBoardData((prevData) => ({
+        ...prevData,
+        totalBins: data.totalBins,
+        averageFill: data.avgFill,
+        topWasteType: data.topWasteType,
+        wardData: data.wardData,
+      }));
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    }
+  }, []);
+  useEffect(() => {
     fetchData();
-  }, [bins]);
+    const fetchInterval = setInterval(fetchData, 10000);
+    return () => {
+      clearInterval(fetchInterval);
+    };
+  }, [fetchData]);
   const analyticsContent = [
     {
       title: "Total Bins",
