@@ -36,18 +36,11 @@ export const ContextProvider = ({ children }) => {
       const data = await response.json();
       const bins = data.data;
 
-      // Only update state if data has actually changed
-      setBins((prevBins) => {
-        const hasChanged = JSON.stringify(prevBins) !== JSON.stringify(bins);
-        return hasChanged ? bins : prevBins;
-      });
-
+      setBins(bins);
       setError(null);
     } catch (error) {
       console.error("Error fetching bin data:", error);
       setError(error.message);
-    } finally {
-      setIsLoading(false);
     }
   }, []);
 
@@ -89,10 +82,8 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     // Initial fetch
     fetchBinData();
+    const fetchInterval = setInterval(fetchBinData, 10000);
     fetchInsightsData();
-
-    const fetchInterval = setInterval(fetchBinData, 30000);
-
     // Cleanup function
     return () => {
       clearInterval(fetchInterval);

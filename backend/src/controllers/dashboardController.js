@@ -19,6 +19,7 @@ exports.getStats = async (req, res) => {
           _id: "$waste_breakdown.waste_type",
           count: { $sum: 1 }, // Count occurrences
           totalWeight: { $sum: "$waste_breakdown.weight" },
+          count: { $sum: 1 }, // Count frequency
           binCount: { $addToSet: "$_id" }, // Count unique bins with this waste type
         },
       },
