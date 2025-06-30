@@ -20,6 +20,7 @@ export const ContextProvider = ({ children }) => {
     insights: [],
     alerts: [],
   });
+  const [mapData, setMapData] = useState([]);
 
   // Memoize fetch functions to prevent unnecessary re-renders
   const fetchBinData = useCallback(async () => {
@@ -59,27 +60,40 @@ export const ContextProvider = ({ children }) => {
       console.error("Error fetching insights data:", error);
     }
   }, []);
+  const fetchMapData = useCallback(async () => {
+    try {
+      const response2 = await fetch("http://localhost:5000/api/map/heatmap");
+      const data2 = await response2.json();
+      setMapData(data2.data);
+    } catch (error) {
+      console.error("Error fetching map data: ", error);
+    }
+  }, []);
 
   useEffect(() => {
     // Initial fetch
     fetchInsightsData();
     fetchBinData();
-    const fetchInterval = setInterval(fetchBinData, 30000);
+    const fetchInterval = setInterval(() => {
+      fetchBinData();
+      fetchMapData();
+    }, 30000);
     // Cleanup function
     return () => {
       clearInterval(fetchInterval);
     };
-  }, [fetchBinData, fetchInsightsData]);
+  }, [fetchBinData, fetchInsightsData, fetchMapData]);
 
   // Memoize context value to prevent unnecessary re-renders
   const contextValue = useMemo(
     () => ({
       bins,
       insights,
+      mapData,
       refetchBins: fetchBinData,
       refetchInsights: fetchInsightsData,
     }),
-    [bins, insights, fetchBinData, fetchInsightsData]
+    [bins, insights, fetchBinData, fetchInsightsData, mapData]
   );
 
   return (

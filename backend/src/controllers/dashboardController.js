@@ -37,7 +37,7 @@ exports.getStats = async (req, res) => {
       { name: 1, bin_id: 1, bin_fill_percent: 1, ward: 1 }
     )
       .sort({ bin_fill_percent: -1 })
-      .limit(10);
+      .limit(200);
 
     // Get waste type distribution for better insights
     const wasteDistribution = await Bin.aggregate([

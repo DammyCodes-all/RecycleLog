@@ -45,7 +45,9 @@ const DashBoard = () => {
     },
     {
       title: "Average Fill",
-      content: `${Math.floor(dashBoardData.averageFill) || "Loading..."}%`,
+      content: `${Math.floor(dashBoardData.averageFill) || "Loading..."}${
+        typeof dashBoardData.averageFill == "number" ? "%" : ""
+      }`,
     },
     { title: "Top waste type", content: dashBoardData.topWasteType },
   ];

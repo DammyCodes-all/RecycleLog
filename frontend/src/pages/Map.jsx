@@ -5,26 +5,21 @@ import AnalyticsBar from "../components/AnalyticsBar";
 import { useBinContext } from "../appContext";
 import { useState, useEffect } from "react";
 const MapPage = () => {
-  const { bins, insights } = useBinContext();
+  const { bins, insights, mapData } = useBinContext();
   const [statsData, setStatsData] = useState([
     { title: "Total Active Bins", content: "Loading..." },
     { title: "Bins Near Overflow", content: "Loading..." },
     { title: "Most Common Waste", content: "Loading..." },
   ]);
-  const [binData, setBins] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
           "http://localhost:5000/api/dashboard/stats"
         );
-        const response2 = await fetch("http://localhost:5000/api/map/heatmap");
 
         // Parse both responses in parallel
         const data = await response.json();
-        const data2 = await response2.json();
-        console.log(data2);
-        setBins(data2.data);
         setStatsData([
           { title: "Total Active Bins", content: data.totalBins },
           { title: "Bins Near Overflow", content: data.overflowCount },
@@ -44,7 +39,7 @@ const MapPage = () => {
         <Topbar title="Heat Maps & Alerts" />
         <div className="max-w-7xl mx-auto p-6 space-y-6 font-sans">
           <div className="flex flex-col md:flex-row gap-6">
-            <Map bins={binData} />
+            <Map bins={mapData} />
 
             <div className="w-full md:w-72 space-y-4">
               <h2 className="text-xl font-semibold text-red-600">Alerts</h2>

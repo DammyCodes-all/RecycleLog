@@ -43,8 +43,10 @@ cron.schedule(
 // Schedule adding waste to bins every 30 seconds
 cron.schedule("*/30 * * * * *", async () => {
   try {
-    await addWasteToBin();
-    await addWasteToBin();
+    const randomTimes = Math.floor(Math.random() * 5) + 1;
+    for (let i = 0; i < randomTimes; i++) {
+      await addWasteToBin();
+    }
   } catch (error) {
     console.error("❌ Error adding waste:", error.message);
   }
@@ -53,8 +55,10 @@ cron.schedule("*/30 * * * * *", async () => {
 // Schedule updating bin fill percent every 30 seconds
 cron.schedule("*/30 * * * * *", async () => {
   try {
-    await updateBinFillPercent();
-    await updateBinFillPercent();
+    const randomTimes = Math.floor(Math.random() * 5) + 1; // Randomly update 1-3 times
+    for (let i = 0; i < randomTimes; i++) {
+      await updateBinFillPercent();
+    }
   } catch (error) {
     console.error("❌ Error updating fill percent:", error.message);
   }
@@ -63,11 +67,10 @@ cron.schedule("*/30 * * * * *", async () => {
 // Schedule emptying bins every 3 minutes
 cron.schedule("*/3 * * * *", async () => {
   try {
-    await emptyBin();
-    await emptyBin();
-    await emptyBin();
-    await emptyBin();
-    await emptyBin();
+    const randomTimes = Math.floor(Math.random() * 10) + 1;
+    for (let i = 0; i < randomTimes; i++) {
+      await emptyBin();
+    }
   } catch (error) {
     console.error("❌ Error emptying bin:", error.message);
   }
