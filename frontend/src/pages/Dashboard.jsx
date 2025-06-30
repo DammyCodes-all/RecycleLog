@@ -12,6 +12,7 @@ const DashBoard = () => {
     totalBins: 0,
     topWasteType: "  ",
     averageFill: 0,
+    wardData: [],
   });
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,7 @@ const DashBoard = () => {
           totalBins: data.totalBins,
           averageFill: data.avgFill,
           topWasteType: data.topWasteType,
+          wardData: data.wardData,
         }));
         console.log(data);
       } catch (error) {
@@ -48,28 +50,7 @@ const DashBoard = () => {
 
   const alerts = insights.alerts;
 
-  // Bar chart data for dashboard
-  const getAvgFillByWard = (bins, ward) => {
-    const wardBins = bins.filter((bin) => bin.ward === ward);
-    return wardBins.length > 0
-      ? Math.floor(
-          wardBins.reduce((acc, bin) => acc + bin.bin_fill_percent, 0) /
-            wardBins.length
-        )
-      : 0;
-  };
-
-  const wardData = [
-    {
-      name: "Ward A",
-      value: getAvgFillByWard(dashBoardData.bins, "Ward A"),
-    },
-    { name: "Ward B", value: getAvgFillByWard(dashBoardData.bins, "Ward B") },
-    { name: "Ward C", value: getAvgFillByWard(dashBoardData.bins, "Ward C") },
-    { name: "Ward D", value: getAvgFillByWard(dashBoardData.bins, "Ward D") },
-    { name: "Ward E", value: getAvgFillByWard(dashBoardData.bins, "Ward E") },
-  ];
-
+  const wardData = dashBoardData.wardData;
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
       <Sidebar />
