@@ -58,7 +58,10 @@ const Analytics = () => {
               </h2>
               {showLoader ? (
                 <div className="flex items-center justify-center h-[280px]">
-                  <BinPulseLoader />
+                  <BinPulseLoader
+                    text="Loading Bar Chart...."
+                    variant="pulse"
+                  />
                 </div>
               ) : (
                 <BarChart data={chartData.barData} title="" height="280px" />
@@ -72,7 +75,7 @@ const Analytics = () => {
               </h2>
               {showLoader ? (
                 <div className="flex items-center justify-center h-[380px]">
-                  <BinPulseLoader />
+                  <BinPulseLoader text="Loading Pie Chart..." />
                 </div>
               ) : (
                 <ZonePieChart pieData={chartData.pieData} />

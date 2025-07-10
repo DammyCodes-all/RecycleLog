@@ -5,7 +5,6 @@ import AnalyticsBar from "../components/AnalyticsBar";
 import { useBinContext } from "../appContext";
 import { useState, useEffect } from "react";
 import { useGetApi } from "../hooks/useAPI";
-import BinPulseLoader from "../components/loader";
 
 const MapPage = () => {
   const { insights, mapData } = useBinContext();
@@ -50,21 +49,14 @@ const MapPage = () => {
 
           {/* Stats Section using AnalyticsBar */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {loading ? (
-              <>
-                <BinPulseLoader />
-                <BinPulseLoader />
-                <BinPulseLoader />
-              </>
-            ) : (
-              statsData.map((stat, index) => (
-                <AnalyticsBar
-                  key={index}
-                  title={stat.title}
-                  content={stat.content}
-                />
-              ))
-            )}
+            {statsData.map((stat, index) => (
+              <AnalyticsBar
+                key={index}
+                title={stat.title}
+                content={stat.content}
+                loading={loading}
+              />
+            ))}
           </div>
         </div>
       </main>

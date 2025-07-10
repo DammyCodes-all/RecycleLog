@@ -73,7 +73,10 @@ const DashBoard = () => {
           <div className="w-full h-full order-0 md:order-1">
             {loading ? (
               <div className="h-[300px] rounded flex items-center justify-center ">
-                <BinPulseLoader />
+                <BinPulseLoader
+                  variant="rotating"
+                  text="Loading Bar Chart..."
+                />
               </div>
             ) : (
               <BarChart
