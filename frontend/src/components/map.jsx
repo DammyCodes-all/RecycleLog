@@ -112,7 +112,7 @@ export default function BinMap({ bins }) {
   return (
     <>
       {/* Add CSS styles */}
-      <style jsx>{`
+      <style>{`
         .bin-marker {
           width: 40px;
           height: 40px;

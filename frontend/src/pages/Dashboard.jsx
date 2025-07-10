@@ -2,22 +2,24 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import BarChart from "../components/BarChart";
 import AnalyticsBar from "../components/AnalyticsBar";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useBinContext } from "../appContext";
+import { useGetApi } from "../hooks/useAPI";
+import BinPulseLoader from "../components/loader";
 
 const DashBoard = () => {
   const { insights } = useBinContext();
+  const [data, loading] = useGetApi(
+    "http://localhost:5000/api/dashboard/stats"
+  );
   const [dashBoardData, setDashBoardData] = useState({
-    totalBins: "Loading...",
-    topWasteType: "Loading...",
-    averageFill: "Loading...",
+    totalBins: 0,
+    topWasteType: "",
+    averageFill: 0,
     wardData: [],
   });
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/dashboard/stats");
-
-      const data = await response.json();
+  useEffect(() => {
+    if (data) {
       setDashBoardData((prevData) => ({
         ...prevData,
         totalBins: data.totalBins,
@@ -25,17 +27,8 @@ const DashBoard = () => {
         topWasteType: data.topWasteType,
         wardData: data.wardData,
       }));
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
     }
-  }, []);
-  useEffect(() => {
-    fetchData();
-    const fetchInterval = setInterval(fetchData, 10000);
-    return () => {
-      clearInterval(fetchInterval);
-    };
-  }, [fetchData]);
+  }, [loading, data]);
   const analyticsContent = [
     {
       title: "Total Bins",
@@ -69,6 +62,7 @@ const DashBoard = () => {
                 title={item.title}
                 content={item.content}
                 showImg
+                loading={loading}
               />
             ))}
           </div>
@@ -77,14 +71,20 @@ const DashBoard = () => {
         <div className="grid grid-cols-1 grid-row-3 md:grid-cols-2 md:grid-rows-2 w-full gap-3 items-center justify-center px-6 py-3">
           {/* Dashboard Bar chart */}
           <div className="w-full h-full order-0 md:order-1">
-            <BarChart
-              data={wardData}
-              title="Average Fill Levels per ward"
-              height="300px"
-              dataKey="value"
-              nameKey="name"
-              barColor="#16a34a"
-            />
+            {loading ? (
+              <div className="h-[300px] rounded flex items-center justify-center ">
+                <BinPulseLoader />
+              </div>
+            ) : (
+              <BarChart
+                data={wardData}
+                title="Average Fill Levels per ward"
+                height="300px"
+                dataKey="value"
+                nameKey="name"
+                barColor="#16a34a"
+              />
+            )}
           </div>
           {/* AI recommendations */}
           <div className="bg-grey shadow-sm text-forest w-full h-full rounded-md p-6 flex flex-col gap-2 md:row-span-2">

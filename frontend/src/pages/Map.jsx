@@ -4,33 +4,28 @@ import Map from "../components/Map";
 import AnalyticsBar from "../components/AnalyticsBar";
 import { useBinContext } from "../appContext";
 import { useState, useEffect } from "react";
+import { useGetApi } from "../hooks/useAPI";
+import BinPulseLoader from "../components/loader";
+
 const MapPage = () => {
-  const { bins, insights, mapData } = useBinContext();
+  const { insights, mapData } = useBinContext();
   const [statsData, setStatsData] = useState([
     { title: "Total Active Bins", content: "Loading..." },
     { title: "Bins Near Overflow", content: "Loading..." },
     { title: "Most Common Waste", content: "Loading..." },
   ]);
+  const [data, loading] = useGetApi(
+    "http://localhost:5000/api/dashboard/stats"
+  );
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:5000/api/dashboard/stats"
-        );
-
-        // Parse both responses in parallel
-        const data = await response.json();
-        setStatsData([
-          { title: "Total Active Bins", content: data.totalBins },
-          { title: "Bins Near Overflow", content: data.overflowCount },
-          { title: "Most Common Waste", content: data.topWasteType },
-        ]);
-      } catch (error) {
-        console.error("Error fetching dashboard data:", error);
-      }
-    };
-    fetchData();
-  }, [bins]);
+    if (data) {
+      setStatsData([
+        { title: "Total Active Bins", content: data.totalBins },
+        { title: "Bins Near Overflow", content: data.overflowCount },
+        { title: "Most Common Waste", content: data.topWasteType },
+      ]);
+    }
+  }, [data]);
   const alerts = insights.alerts || [];
   return (
     <div className="flex h-screen bg-gray-50 relative md:static">
@@ -40,7 +35,6 @@ const MapPage = () => {
         <div className="max-w-7xl mx-auto p-6 space-y-6 font-sans">
           <div className="flex flex-col md:flex-row gap-6">
             <Map bins={mapData} />
-
             <div className="w-full md:w-72 space-y-4">
               <h2 className="text-xl font-semibold text-red-600">Alerts</h2>
               {alerts.map((item, index) => (
@@ -56,13 +50,21 @@ const MapPage = () => {
 
           {/* Stats Section using AnalyticsBar */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {statsData.map((stat, index) => (
-              <AnalyticsBar
-                key={index}
-                title={stat.title}
-                content={stat.content}
-              />
-            ))}
+            {loading ? (
+              <>
+                <BinPulseLoader />
+                <BinPulseLoader />
+                <BinPulseLoader />
+              </>
+            ) : (
+              statsData.map((stat, index) => (
+                <AnalyticsBar
+                  key={index}
+                  title={stat.title}
+                  content={stat.content}
+                />
+              ))
+            )}
           </div>
         </div>
       </main>
