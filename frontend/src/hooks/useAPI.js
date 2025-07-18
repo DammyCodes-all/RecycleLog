@@ -7,21 +7,13 @@ const useGetApi = (url, duration = 50000) => {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-      setError(null); // ✅ Clear previous errors
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        // ✅ Handle HTTP errors
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const result = await response.json();
+      setError(null);
+      const result = await getData(url);
       setData(result);
     } catch (err) {
-      setError(err.message); // ✅ Expose error to components
+      setError(err.message);
     } finally {
-      setLoading(false); // ✅ Only set loading false once
+      setLoading(false);
     }
   }, [url]);
 
@@ -42,3 +34,15 @@ const useGetApi = (url, duration = 50000) => {
   return [data, loading, error, refetch]; // ✅ Object return for flexibility
 };
 export { useGetApi };
+export const getData = async (url) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Fetch Failed With HTTP Status ${response.status}`);
+    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw new Error(error);
+  }
+};

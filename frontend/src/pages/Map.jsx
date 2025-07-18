@@ -2,12 +2,14 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import Map from "../components/Map";
 import AnalyticsBar from "../components/AnalyticsBar";
-import { useBinContext } from "../appContext";
 import { useState, useEffect } from "react";
 import { useGetApi } from "../hooks/useAPI";
-
+import { useSelector } from "react-redux";
 const MapPage = () => {
-  const { insights, mapData } = useBinContext();
+  // Subscribed to the store
+  const insights = useSelector((state) => state.insights.data);
+  const { data: mapData } = useSelector((state) => state.heatMap.data);
+
   const [statsData, setStatsData] = useState([
     { title: "Total Active Bins", content: "Loading..." },
     { title: "Bins Near Overflow", content: "Loading..." },

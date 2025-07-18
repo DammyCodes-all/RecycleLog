@@ -3,12 +3,13 @@ import Topbar from "../components/Topbar";
 import BarChart from "../components/BarChart";
 import AnalyticsBar from "../components/AnalyticsBar";
 import { useEffect, useState } from "react";
-import { useBinContext } from "../appContext";
 import { useGetApi } from "../hooks/useAPI";
+import { useSelector } from "react-redux";
 import BinPulseLoader from "../components/loader";
 
 const DashBoard = () => {
-  const { insights } = useBinContext();
+  const insights = useSelector((state) => state.insights.data);
+
   const [data, loading] = useGetApi(
     "http://localhost:5000/api/dashboard/stats"
   );

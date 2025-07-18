@@ -3,9 +3,9 @@ import Topbar from "../components/Topbar";
 import { useEffect, useState } from "react";
 import ZonePieChart from "../components/PieChart";
 import BarChart from "../components/BarChart";
-import { useBinContext } from "../appContext";
 import { useGetApi } from "../hooks/useAPI";
 import BinPulseLoader from "../components/loader";
+import { useSelector } from "react-redux";
 
 const Analytics = () => {
   const [chartData, setChartData] = useState({
@@ -13,7 +13,7 @@ const Analytics = () => {
     barData: [],
   });
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-  const { insights } = useBinContext();
+  const insights = useSelector((state) => state.insights.data);
   const [data, loading] = useGetApi(
     "http://localhost:5000/api/analytics/distribution",
     10000
