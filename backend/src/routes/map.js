@@ -1,9 +1,9 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getHeatmap } = require('../controllers/mapController');
+const { getHeatMap } = require("../controllers/mapController");
 
 // Map & heatmap
-router.get('/heatmap', getHeatmap);
+router.get("/heatmap", getHeatMap);
 // Optional WebSocket endpoint handled elsewhere
 
 module.exports = router;
