@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import Map from "../components/Map";
+import Map from "../components/map";
 import AnalyticsBar from "../components/AnalyticsBar";
 import { useState, useEffect } from "react";
 import { useGetApi } from "../hooks/useAPI";
