@@ -34,7 +34,7 @@ const Rankings = () => {
 
     fetchRankings();
     const fetchInterval = setInterval(fetchRankings, 10000);
-    return clearInterval(fetchInterval);
+    return () => clearInterval(fetchInterval);
   }, [bins]);
 
   const getMedalByRank = (rank) => {
@@ -128,38 +128,52 @@ const Rankings = () => {
       <main className="flex-1 overflow-y-auto ml-16 md:ml-0">
         <Topbar title="Waste Community Rankings" />
 
-        <div className="p-6 max-w-6xl mx-auto font-sans">
+        <div className="p-4 md:p-6 max-w-6xl mx-auto font-sans">
           {/* Hero card */}
           {rankings[0] && (
-            <div className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-t-xl px-8 py-6 flex flex-col md:flex-row justify-between items-center shadow-lg">
+            <div className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-t-xl px-4 py-4 md:px-8 md:py-6 flex flex-col md:flex-row justify-between items-center shadow-lg">
               <div className="flex items-center gap-4">
                 <div className="relative">
-                  <img src="/Award 2.png" alt="Badge" className="w-12 h-12" />
+                  <img
+                    src="/Award 2.png"
+                    alt="Badge"
+                    className="w-10 h-10 md:w-12 md:h-12"
+                  />
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center">
                     <span className="text-xs font-bold text-green-800">1</span>
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold">{rankings[0].zone}</h2>
-                  <p className="text-green-100">
+                  <h2 className="text-xl md:text-2xl font-bold">
+                    {rankings[0].zone}
+                  </h2>
+                  <p className="text-green-100 text-sm md:text-base">
                     Top Performer • {rankings[0].fill}% Avg Fill
                   </p>
-                  <p className="text-sm text-green-200">
+                  <p className="text-xs md:text-sm text-green-200">
                     Leading waste management efficiency
                   </p>
                 </div>
               </div>
               <div className="mt-4 md:mt-0 text-right">
                 <div className="bg-white/20 rounded-lg p-3 backdrop-blur-sm">
-                  <p className="text-sm font-medium">Performance Score</p>
-                  <p className="text-2xl font-bold text-yellow-300">A+</p>
+                  <p className="text-xs md:text-sm font-medium">
+                    Performance Score
+                  </p>
+                  <p className="text-xl md:text-2xl font-bold text-yellow-300">
+                    A+
+                  </p>
                 </div>
               </div>
             </div>
           )}
 
-          <div className="overflow-x-auto bg-white rounded-b-xl shadow-lg">
-            <table className="min-w-full text-sm text-left">
+          {/* Desktop/Tablet table */}
+          <div className="hidden md:block overflow-x-auto bg-white rounded-b-xl shadow-lg">
+            <table
+              className="min-w-full text-sm text-left"
+              aria-label="Rankings table"
+            >
               <thead className="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
                 <tr>
                   <th className="px-6 py-4 font-semibold text-gray-700">
@@ -200,7 +214,11 @@ const Rankings = () => {
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
                           <div className={getRankDisplay(rank)}>{rank}</div>
-                          <img src={medal} alt="medal" className="w-6 h-6" />
+                          <img
+                            src={medal}
+                            alt={`medal for rank ${rank}`}
+                            className="w-6 h-6"
+                          />
                         </div>
                       </td>
                       <td className="px-6 py-4 font-medium text-gray-800">
@@ -255,6 +273,80 @@ const Rankings = () => {
                 )}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile card list */}
+          <div className="md:hidden space-y-3 mt-3">
+            {rankings.map(
+              ({
+                rank,
+                medal,
+                zone,
+                fill,
+                fillPercent,
+                status,
+                performance,
+              }) => (
+                <div
+                  key={rank}
+                  className={cn(
+                    "bg-white rounded-lg shadow border border-gray-100 p-3",
+                    getRowColors(performance, rank)
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={getRankDisplay(rank)}>{rank}</div>
+                      <div>
+                        <p className="text-sm font-semibold text-gray-800">
+                          {zone}
+                        </p>
+                        <p className="text-xs text-gray-500 capitalize">
+                          {performance} efficiency
+                        </p>
+                      </div>
+                    </div>
+                    <img
+                      src={medal}
+                      alt={`medal for rank ${rank}`}
+                      className="w-5 h-5"
+                    />
+                  </div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={cn("text-sm", getFillColors(fillPercent))}
+                      >
+                        {fill}%
+                      </span>
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div
+                          className={cn(
+                            "h-2 rounded-full transition-all",
+                            fillPercent < 40
+                              ? "bg-green-500"
+                              : fillPercent < 60
+                              ? "bg-blue-500"
+                              : fillPercent < 80
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
+                          )}
+                          style={{ width: `${Math.min(fillPercent, 100)}%` }}
+                        />
+                      </div>
+                    </div>
+                    <span
+                      className={cn(
+                        "px-2.5 py-1 rounded-full text-[10px] font-medium",
+                        getStatusColors(status)
+                      )}
+                    >
+                      {status}
+                    </span>
+                  </div>
+                </div>
+              )
+            )}
           </div>
         </div>
       </main>
