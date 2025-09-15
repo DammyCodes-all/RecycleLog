@@ -5,7 +5,9 @@ export const fetchInsights = createAsyncThunk(
   "insights/fetchInsights",
   async (_, thunkApi) => {
     try {
-      const data = await getData("http://localhost:5000/api/recommendations");
+      const data = await getData(
+        "https://recyclelog-1.onrender.com/api/recommendations"
+      );
       let parsedData;
       if (data && data[0] && data[0].text) {
         parsedData = JSON.parse(data[0].text);

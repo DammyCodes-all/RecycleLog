@@ -14,7 +14,6 @@ const MapPage = lazy(() => import("./pages/Map.jsx"));
 
 const App = () => {
   const dispatch = useDispatch();
-  // Poling Logic and Initial Fetch
   useEffect(() => {
     dispatch(fetchInsights());
     dispatch(fetchMapData());

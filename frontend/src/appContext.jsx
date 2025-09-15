@@ -23,7 +23,9 @@ export const ContextProvider = ({ children }) => {
 
   const fetchInsightsData = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/recommendations");
+      const response = await fetch(
+        "https://recyclelog-1.onrender.com/api/recommendations"
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -42,7 +44,9 @@ export const ContextProvider = ({ children }) => {
   }, []);
   const fetchMapData = useCallback(async () => {
     try {
-      const response2 = await fetch("http://localhost:5000/api/map/heatmap");
+      const response2 = await fetch(
+        "https://recyclelog-1.onrender.com/api/map/heatmap"
+      );
       const data2 = await response2.json();
       setMapData(data2.data);
     } catch (error) {

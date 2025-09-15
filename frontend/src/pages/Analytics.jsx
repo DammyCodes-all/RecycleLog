@@ -15,7 +15,7 @@ const Analytics = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const insights = useSelector((state) => state.insights.data);
   const [data, loading] = useGetApi(
-    "http://localhost:5000/api/analytics/distribution",
+    "https://recyclelog-1.onrender.com/api/analytics/distribution",
     10000
   );
 

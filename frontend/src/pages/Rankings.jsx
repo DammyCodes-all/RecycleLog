@@ -12,7 +12,7 @@ const Rankings = () => {
     const fetchRankings = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/leaderboard/regions"
+          "https://recyclelog-1.onrender.com/api/leaderboard/regions"
         );
         const data = await response.json();
 

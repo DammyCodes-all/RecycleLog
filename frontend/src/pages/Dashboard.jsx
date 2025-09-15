@@ -11,7 +11,7 @@ const DashBoard = () => {
   const insights = useSelector((state) => state.insights.data);
 
   const [data, loading] = useGetApi(
-    "http://localhost:5000/api/dashboard/stats"
+    "https://recyclelog-1.onrender.com/api/dashboard/stats"
   );
   const [dashBoardData, setDashBoardData] = useState({
     totalBins: 0,

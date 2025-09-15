@@ -4,7 +4,9 @@ export const fetchMapData = createAsyncThunk(
   "map/fetchMap",
   async (_, thunkApi) => {
     try {
-      const data = await getData("http://localhost:5000/api/map/heatmap");
+      const data = await getData(
+        "https://recyclelog-1.onrender.com/api/map/heatmap"
+      );
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(
